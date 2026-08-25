@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ModMetaData>
+  <packageId>daraynlb.tattoomagic</packageId>
+  <name>TattooMagic</name>
+  <author>DaraynLB</author>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <description>TattooMagic turns tattoos into a source of magic. Pawns apply magical tattoos at a dedicated ritual station, gaining passive buffs and gizmo-activated abilities. Requires Harmony; fully functional with or without Combat Extended.</description>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+  </loadAfter>
+</ModMetaData>

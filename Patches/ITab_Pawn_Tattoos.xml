@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- BasePawn is the shared abstract ThingDef both Human and every animal
+     race inherit inspectorTabs from; Human doesn't declare its own list to
+     patch. ITab_Pawn_Tattoos.IsVisible restricts it to humanlikes only. -->
+<Patch>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[@Name="BasePawn"]/inspectorTabs</xpath>
+    <value>
+      <li>TattooMagic.ITab_Pawn_Tattoos</li>
+    </value>
+  </Operation>
+
+</Patch>

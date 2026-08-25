@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- baseMoodEffect below is a placeholder pending the PRD §9 balance pass, used only as the
+     TattooEffectValues fallback default (research.md R5, FR-011) — see
+     Thought_StarlightWardTier2Active.BaseMoodOffset. -->
+<Defs>
+
+  <ThoughtDef>
+    <defName>TattooMagic_Thought_StarlightWardTier2</defName>
+    <thoughtClass>TattooMagic.Thought_StarlightWardTier2Active</thoughtClass>
+    <workerClass>TattooMagic.ThoughtWorker_StarlightWardTier2Active</workerClass>
+    <stages>
+      <li>
+        <label>starlight's calm</label>
+        <description>My Starlight Ward tattoo has grown strong enough to fill me with a quiet, steady calm.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>

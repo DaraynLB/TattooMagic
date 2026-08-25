@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <!-- All numeric values below are placeholders pending the PRD §9 balance
+       pass, deliberately small for fast manual testing (feature 006
+       research.md R8 convention). They are read exclusively through
+       TattooEffectValues at point of use (FR-010) — the values here only
+       ever serve as that accessor's xmlDefault argument. -->
+  <HediffDef>
+    <defName>TattooMagic_Hediff_Bloodrune</defName>
+    <label>bloodrune tattoo</label>
+    <description>A magic tattoo granting a triggered burst of lifesteal/self-heal. Grows stronger with use, eventually easing pain while it works.</description>
+    <hediffClass>TattooMagic.Hediff_BloodruneEffect</hediffClass>
+    <isBad>false</isBad>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="TattooMagic.HediffCompProperties_BloodruneEffect">
+        <totalHealAmountTier1>12</totalHealAmountTier1>
+        <totalHealAmountTier2>24</totalHealAmountTier2>
+        <burstDurationTicksTier1>180</burstDurationTicksTier1>
+        <burstDurationTicksTier2>300</burstDurationTicksTier2>
+        <healIntervalTicks>30</healIntervalTicks>
+        <cooldownDurationTicksTier1>1800</cooldownDurationTicksTier1>
+        <cooldownDurationTicksTier2>1800</cooldownDurationTicksTier2>
+        <painOffsetTier2>0.15</painOffsetTier2>
+        <tier2Threshold>15</tier2Threshold>
+        <abilityIconPath>UI/Commands/Bloodrune</abilityIconPath>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

@@ -1,0 +1,23 @@
+# .NET build output
+bin/
+obj/
+*.user
+*.suo
+
+# Visual Studio / VS Code
+.vs/
+
+# Claude Code local state
+.claude/
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+
+# Spec Kit tooling/config (the specs themselves, under specs/, stay tracked)
+.specify/
+
+# Local-only drafts (not meant for the public repo)
+docs/steam-workshop-description.txt
+
+# OS
+Thumbs.db
+.DS_Store

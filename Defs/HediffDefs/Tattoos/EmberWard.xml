@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- All numeric values below are placeholders pending the PRD §9 balance pass. They are read
+     exclusively through TattooEffectValues at point of use (FR-012), small/fast-to-test rather
+     than "plausible-looking" per feature 006 research.md R8 precedent. -->
+<Defs>
+
+  <HediffDef>
+    <defName>TattooMagic_Hediff_EmberWard</defName>
+    <label>ember ward tattoo</label>
+    <description>A magic tattoo granting heat resistance and burn protection.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>false</isBad>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="TattooMagic.HediffCompProperties_EmberWardEffect">
+        <heatResistanceTier1>5</heatResistanceTier1>
+        <heatResistanceTier2>10</heatResistanceTier2>
+        <armorRatingHeatTier1>0.08</armorRatingHeatTier1>
+        <armorRatingHeatTier2>0.16</armorRatingHeatTier2>
+        <fullIgnoreChanceTier2>0.15</fullIgnoreChanceTier2>
+        <tier2Threshold>10</tier2Threshold>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

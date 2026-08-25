@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>TattooMagic</RootNamespace>
+    <AssemblyName>TattooMagic</AssemblyName>
+
+    <!-- Build output lands directly in the mod's Assemblies folder -->
+    <OutputPath>..\Assemblies\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+    <!-- Avoids stray .pdb files that can trip up RimWorld's assembly loader -->
+    <DebugType>none</DebugType>
+
+    <Nullable>disable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Auto-references the game's own DLLs. Version should roughly match
+         the installed RimWorld version. If it can't find the install
+         automatically, uncomment RimWorldPath below. -->
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*" />
+
+    <!-- Harmony, for patching game methods. Gets copied to Assemblies
+         alongside the mod DLL, so the mod is self-contained. -->
+    <PackageReference Include="Lib.Harmony" Version="2.3.*" />
+  </ItemGroup>
+
+  <!--
+  <PropertyGroup>
+    <RimWorldPath>C:\Program Files (x86)\Steam\steamapps\common\RimWorld</RimWorldPath>
+  </PropertyGroup>
+  -->
+
+  <PropertyGroup>
+    <RimWorldModsPath Condition="'$(RimWorldModsPath)' == ''">C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods</RimWorldModsPath>
+    <ModPublishDir>$(RimWorldModsPath)\$(AssemblyName)</ModPublishDir>
+  </PropertyGroup>
+
+  <Target Name="PublishToModsFolder" AfterTargets="Build">
+    <ItemGroup>
+      <AboutFiles Include="$(ProjectDir)..\About\**\*.*" />
+      <AssemblyFiles Include="$(ProjectDir)..\Assemblies\**\*.*" />
+      <DefsFiles Include="$(ProjectDir)..\Defs\**\*.*" />
+      <TextureFiles Include="$(ProjectDir)..\Textures\**\*.*" />
+      <PatchesFiles Include="$(ProjectDir)..\Patches\**\*.*" />
+      <LanguagesFiles Include="$(ProjectDir)..\Languages\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(AboutFiles)" DestinationFolder="$(ModPublishDir)\About\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(AssemblyFiles)" DestinationFolder="$(ModPublishDir)\Assemblies\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DefsFiles)" DestinationFolder="$(ModPublishDir)\Defs\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(TextureFiles)" DestinationFolder="$(ModPublishDir)\Textures\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(PatchesFiles)" DestinationFolder="$(ModPublishDir)\Patches\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(LanguagesFiles)" DestinationFolder="$(ModPublishDir)\Languages\%(RecursiveDir)" SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>

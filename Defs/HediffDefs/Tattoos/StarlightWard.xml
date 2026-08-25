@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- All numeric values below are placeholders pending the PRD §9 balance pass. They are read
+     exclusively through TattooEffectValues at point of use (FR-011), small/fast-to-test rather
+     than "plausible-looking" per feature 006 research.md R8 precedent. -->
+<Defs>
+
+  <HediffDef>
+    <defName>TattooMagic_Hediff_StarlightWard</defName>
+    <label>starlight ward tattoo</label>
+    <description>A magic tattoo granting mental-break and psychic-sensitivity resistance.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>false</isBad>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="TattooMagic.HediffCompProperties_StarlightWardEffect">
+        <mentalBreakResistanceTier1>-0.03</mentalBreakResistanceTier1>
+        <mentalBreakResistanceTier2>-0.06</mentalBreakResistanceTier2>
+        <psychicSensitivityResistanceTier1>-0.10</psychicSensitivityResistanceTier1>
+        <psychicSensitivityResistanceTier2>-0.20</psychicSensitivityResistanceTier2>
+        <moodBuffTier2>3</moodBuffTier2>
+        <tier2Threshold>5</tier2Threshold>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

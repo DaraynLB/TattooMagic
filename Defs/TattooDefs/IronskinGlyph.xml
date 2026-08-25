@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ingredient counts and workAmount are placeholders pending the PRD §9 balance pass. -->
+<Defs>
+
+  <TattooMagic.TattooMagicDef>
+    <defName>TattooMagic_IronskinGlyph</defName>
+    <label>Ironskin Glyph</label>
+    <description>A passive tattoo granting increased armor rating.</description>
+    <tattooType>Passive</tattooType>
+    <iconPath>UI/Tattoos/IronskinGlyph</iconPath>
+    <workAmount>600</workAmount>
+    <appliedHediff>TattooMagic_Hediff_IronskinGlyph</appliedHediff>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>MedicineHerbal</li>
+          </thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Silver</li>
+          </thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+    </ingredients>
+  </TattooMagic.TattooMagicDef>
+
+</Defs>

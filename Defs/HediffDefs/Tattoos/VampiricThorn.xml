@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <!-- All numeric values below are placeholders pending the PRD §9 balance
+       pass. They are read exclusively through TattooEffectValues at point of
+       use (FR-012) — the values here only ever serve as that accessor's
+       xmlDefault argument. -->
+  <HediffDef>
+    <defName>TattooMagic_Hediff_VampiricThorn</defName>
+    <label>vampiric thorn tattoo</label>
+    <description>A magic tattoo granting melee lifesteal. Grows stronger with use, and grants a brief extra burst of recovery on a killing blow.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>false</isBad>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="TattooMagic.HediffCompProperties_VampiricThornEffect">
+        <lifestealAmountTier1>2</lifestealAmountTier1>
+        <lifestealAmountTier2>4</lifestealAmountTier2>
+        <postKillHealAmountTier2>10</postKillHealAmountTier2>
+        <postKillHealDurationTicksTier2>180</postKillHealDurationTicksTier2>
+        <postKillHealIntervalTicks>30</postKillHealIntervalTicks>
+        <tier2Threshold>15</tier2Threshold>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

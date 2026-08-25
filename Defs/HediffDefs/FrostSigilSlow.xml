@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <!-- Transient hediff granted to a melee attacker when Frost Sigil's slow
+       proc succeeds (research.md R4). Not player-configured via XML — the
+       actual move-speed offset and duration are resolved through
+       TattooEffectValues at grant time and set directly on the comp
+       instances (HediffComp_FrostSigilSlow.Configure, HediffComp_Disappears
+       .SetDuration), not read from HediffStage. -->
+  <HediffDef>
+    <defName>TattooMagic_Hediff_FrostSigilSlow</defName>
+    <label>frost-slowed</label>
+    <description>Slowed by the frost of a Frost Sigil tattoo.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>true</isBad>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>180</disappearsAfterTicks>
+        <showRemainingTime>true</showRemainingTime>
+      </li>
+      <li Class="TattooMagic.HediffCompProperties_FrostSigilSlow" />
+    </comps>
+  </HediffDef>
+
+</Defs>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <HediffDef>
+    <defName>TattooMagic_Tracker</defName>
+    <label>tattoo mastery tracker</label>
+    <description>Internal TattooMagic bookkeeping. Tracks tattoo slot capacity and which tattoos are applied. Not meant to be player-visible.</description>
+    <hediffClass>TattooMagic.Hediff_TattooTracker</hediffClass>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="TattooMagic.HediffCompProperties_TattooTracker">
+        <!-- PRD §9 balance-pass placeholders — deliberately small for fast manual testing (research.md R8) -->
+        <slot2Threshold>3</slot2Threshold>
+        <slot3Threshold>8</slot3Threshold>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ingredient counts and workAmount are placeholders pending the PRD §9
+     balance pass; the mechanism enforcing them is real (Constitution
+     Principle III), the numbers are not final. -->
+<Defs>
+
+  <TattooMagic.TattooMagicDef>
+    <defName>TattooMagic_EmberWard</defName>
+    <label>Ember Ward</label>
+    <description>A passive tattoo granting heat resistance and burn protection.</description>
+    <tattooType>Passive</tattooType>
+    <iconPath>UI/Tattoos/EmberWard</iconPath>
+    <workAmount>600</workAmount>
+    <appliedHediff>TattooMagic_Hediff_EmberWard</appliedHediff>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>MedicineHerbal</li>
+          </thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Silver</li>
+          </thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+    </ingredients>
+  </TattooMagic.TattooMagicDef>
+
+</Defs>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <!-- All numeric values below are placeholders pending the PRD §9 balance
+       pass. They are read exclusively through TattooEffectValues at point of
+       use (FR-012) — the values here only ever serve as that accessor's
+       xmlDefault argument. -->
+  <HediffDef>
+    <defName>TattooMagic_Hediff_FrostSigil</defName>
+    <label>frost sigil tattoo</label>
+    <description>A magic tattoo granting cold resistance and a chance to slow melee attackers on hit. Grows stronger with use.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>false</isBad>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="TattooMagic.HediffCompProperties_FrostSigilEffect">
+        <coldResistanceTier1>5</coldResistanceTier1>
+        <coldResistanceTier2>10</coldResistanceTier2>
+        <slowChanceTier1>0.15</slowChanceTier1>
+        <slowChanceTier2>0.3</slowChanceTier2>
+        <slowMoveSpeedOffsetTier1>-1.5</slowMoveSpeedOffsetTier1>
+        <slowMoveSpeedOffsetTier2>-2.5</slowMoveSpeedOffsetTier2>
+        <slowDurationTicksTier1>180</slowDurationTicksTier1>
+        <slowDurationTicksTier2>300</slowDurationTicksTier2>
+        <freezeChanceTier2>0.1</freezeChanceTier2>
+        <freezeDurationTicksTier2>60</freezeDurationTicksTier2>
+        <tier2Threshold>15</tier2Threshold>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

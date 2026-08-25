@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <!-- All numeric values below are placeholders pending the PRD §9 balance
+       pass. They are read exclusively through TattooEffectValues at point of
+       use (FR-013) — the values here only ever serve as that accessor's
+       xmlDefault argument. defenseOffsetTier2 < defenseOffsetTier1 encodes
+       FR-007's "smaller Tier 2 penalty" directly in the placeholder data. -->
+  <HediffDef>
+    <defName>TattooMagic_Hediff_BerserkersMark</defName>
+    <label>berserker's mark tattoo</label>
+    <description>A magic tattoo granting a triggered melee damage and pain-threshold boost, with a defense tradeoff.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>false</isBad>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="TattooMagic.HediffCompProperties_BerserkersMarkEffect">
+        <meleeDamageOffsetTier1>0.20</meleeDamageOffsetTier1>
+        <meleeDamageOffsetTier2>0.40</meleeDamageOffsetTier2>
+        <painThresholdOffsetTier1>0.15</painThresholdOffsetTier1>
+        <painThresholdOffsetTier2>0.15</painThresholdOffsetTier2>
+        <defenseOffsetTier1>0.15</defenseOffsetTier1>
+        <defenseOffsetTier2>0.08</defenseOffsetTier2>
+        <boostDurationTicksTier1>180</boostDurationTicksTier1>
+        <boostDurationTicksTier2>180</boostDurationTicksTier2>
+        <cooldownDurationTicksTier1>1800</cooldownDurationTicksTier1>
+        <cooldownDurationTicksTier2>1800</cooldownDurationTicksTier2>
+        <tier2Threshold>15</tier2Threshold>
+        <abilityIconPath>UI/Commands/BerserkersMark</abilityIconPath>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

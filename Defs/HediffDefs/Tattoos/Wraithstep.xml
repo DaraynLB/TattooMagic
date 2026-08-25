@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <HediffDef>
+    <defName>TattooMagic_Hediff_Wraithstep</defName>
+    <label>wraithstep tattoo</label>
+    <description>A magic tattoo granting a triggered short-range blink/teleport.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>false</isBad>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="TattooMagic.HediffCompProperties_WraithstepEffect">
+        <!-- Placeholder values pending the PRD §9 balance pass; small/fast-to-test per feature 006 research.md R8. -->
+        <rangeTier1>6</rangeTier1>
+        <rangeTier2>10</rangeTier2>
+        <cooldownDurationTicksTier1>1200</cooldownDurationTicksTier1>
+        <cooldownDurationTicksTier2>1200</cooldownDurationTicksTier2>
+        <untargetableWindowTicksTier2>90</untargetableWindowTicksTier2>
+        <tier2Threshold>15</tier2Threshold>
+        <abilityIconPath>UI/Commands/Wraithstep</abilityIconPath>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

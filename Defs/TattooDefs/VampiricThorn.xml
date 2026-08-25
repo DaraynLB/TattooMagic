@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ingredient counts and workAmount are placeholders pending the PRD §9 balance pass. -->
+<Defs>
+
+  <TattooMagic.TattooMagicDef>
+    <defName>TattooMagic_VampiricThorn</defName>
+    <label>Vampiric Thorn</label>
+    <description>A passive tattoo granting melee lifesteal.</description>
+    <tattooType>Passive</tattooType>
+    <modifierSummary>Tier 1: heal 2 HP on your worst wound per landed melee hit.
+Tier 2: heal 4 HP per hit, plus a short heal-over-time window after a kill.</modifierSummary>
+    <iconPath>UI/Tattoos/VampiricThorn</iconPath>
+    <workAmount>600</workAmount>
+    <appliedHediff>TattooMagic_Hediff_VampiricThorn</appliedHediff>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>MedicineHerbal</li>
+          </thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Silver</li>
+          </thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+    </ingredients>
+  </TattooMagic.TattooMagicDef>
+
+</Defs>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <JobDef>
+    <defName>TattooMagic_TattooRitual</defName>
+    <driverClass>TattooMagic.JobDriver_TattooRitual</driverClass>
+    <reportString>performing a tattoo ritual on TargetB.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>TattooMagic_WaitForTattooRitual</defName>
+    <driverClass>TattooMagic.JobDriver_WaitForTattooRitual</driverClass>
+    <reportString>waiting to receive a tattoo.</reportString>
+    <playerInterruptible>true</playerInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>TattooMagic_DoTattooRitual</defName>
+    <label>perform tattoo ritual</label>
+    <giverClass>TattooMagic.WorkGiver_TattooRitual</giverClass>
+    <workType>Art</workType>
+    <priorityInType>50</priorityInType>
+    <verb>perform ritual on</verb>
+    <gerund>performing tattoo ritual on</gerund>
+    <directOrderable>true</directOrderable>
+  </WorkGiverDef>
+
+</Defs>

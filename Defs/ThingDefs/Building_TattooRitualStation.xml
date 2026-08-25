@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>TattooMagic_RitualStation</defName>
+    <label>tattoo ritual station</label>
+    <description>A dedicated station where a skilled colonist can apply a magic tattoo to another pawn. Requires ritual ingredients and a steady, artistic hand.</description>
+    <thingClass>TattooMagic.Building_TattooRitualStation</thingClass>
+    <category>Building</category>
+    <!-- Reuses vanilla's art-bench texture as placeholder art; PRD explicitly
+         defers a custom texture/art pipeline to a fast-follow (see PRD §3).
+         Must match vanilla TableSculpting's own graphicClass/shaderType —
+         that texture is a rotation-suffixed set (Graphic_Multi), not a
+         single flat file, so Graphic_Single fails to load it. -->
+    <graphicData>
+      <texPath>Things/Building/Production/TableSculpting</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(3,2)</drawSize>
+      <shadowData>
+        <volume>(2.9, 0.3, 0.5)</volume>
+        <offset>(0, 0, 0)</offset>
+      </shadowData>
+    </graphicData>
+    <size>(3,2)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>60</pathCost>
+    <fillPercent>0.5</fillPercent>
+    <castEdgeShadows>true</castEdgeShadows>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+    <designationCategory>Production</designationCategory>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <hasInteractionCell>true</hasInteractionCell>
+    <costList>
+      <WoodLog>60</WoodLog>
+      <Steel>20</Steel>
+    </costList>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <WorkToBuild>2000</WorkToBuild>
+      <Flammability>0.5</Flammability>
+      <Beauty>2</Beauty>
+    </statBases>
+  </ThingDef>
+
+</Defs>
