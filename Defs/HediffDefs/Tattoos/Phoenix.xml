@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <!-- All numeric values below are placeholders pending the PRD §9 balance
+       pass (and this spec's own Assumptions section, which explicitly defers
+       the decomposition-to-chance curve and the Tier 2 day threshold). They
+       are read exclusively through TattooEffectValues at point of use. -->
+  <HediffDef>
+    <defName>TattooMagic_Hediff_Phoenix</defName>
+    <label>phoenix tattoo</label>
+    <description>A rare magic tattoo that brings its wearer back from actual death, after a wait and a decomposition-based chance that retries daily. Every attempt leaves a burn. Also grants a passive chance to auto-cauterize a severe bleeding wound.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>false</isBad>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="TattooMagic.HediffCompProperties_PhoenixEffect">
+        <waitDaysTier1>5</waitDaysTier1>
+        <waitDaysTier2>3</waitDaysTier2>
+        <decompositionChanceCurve>
+          <points>
+            <li>(0, 0.9)</li>
+            <li>(1, 0.6)</li>
+            <li>(3, 0.3)</li>
+            <li>(7, 0.1)</li>
+            <li>(14, 0.02)</li>
+          </points>
+        </decompositionChanceCurve>
+        <burnSeverityTier1>18</burnSeverityTier1>
+        <burnSeverityTier2>8</burnSeverityTier2>
+        <abasiaBaseDurationDays>2</abasiaBaseDurationDays>
+        <abasiaDurationIncrementDays>1</abasiaDurationIncrementDays>
+        <tier2DaysAliveThreshold>30</tier2DaysAliveThreshold>
+        <cauterizeChanceTier1>0.15</cauterizeChanceTier1>
+        <cauterizeChanceTier2>0.35</cauterizeChanceTier2>
+        <minimumQualifyingBleedRate>0.15</minimumQualifyingBleedRate>
+        <factionCap>3</factionCap>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

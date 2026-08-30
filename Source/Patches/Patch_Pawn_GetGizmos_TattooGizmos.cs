@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using HarmonyLib;
+using UnityEngine;
 using Verse;
 
 namespace TattooMagic
@@ -22,6 +23,32 @@ namespace TattooMagic
 
             if (__instance?.health?.hediffSet == null)
                 yield break;
+
+            // Found via live testing (2026-08-28): Dialog_ChooseTattoo's
+            // TryQueueRitual force-starts a wait job on the recipient, but
+            // nothing ever clears HediffComp_TattooTracker.pendingRitualTattoo
+            // if the player manually redirects that pawn afterward (a
+            // different order, a draft, anything that interrupts the wait
+            // job) — with no cancel gizmo, the recipient stays permanently
+            // "pending" with no job driving them back to the station,
+            // spamming WorkGiver_TattooRitual's own debug scan log on every
+            // other colonist forever. Clearing pendingRitualTattoo here is
+            // enough on its own: both JobDriver_WaitForTattooRitual and
+            // JobDriver_TattooRitual already FailOn it going null, so
+            // whichever job (if any) is still active ends itself on its own
+            // next tick — no separate EndCurrentJob call needed.
+            HediffComp_TattooTracker tracker = TattooTrackerUtility.GetTracker(__instance);
+            if (tracker?.pendingRitualTattoo != null)
+            {
+                TattooMagicDef pendingTattoo = tracker.pendingRitualTattoo;
+                yield return new Command_Action
+                {
+                    defaultLabel = $"Cancel {pendingTattoo.label} ritual",
+                    defaultDesc = $"Cancel {__instance.LabelShortCap}'s queued {pendingTattoo.label} tattoo ritual and free them for other work. Safe even mid-ritual — any ingredients already consumed by the performer are lost, same as a failed ritual.",
+                    icon = ContentFinder<Texture2D>.Get("UI/Commands/TattooRitual", false),
+                    action = () => tracker.pendingRitualTattoo = null,
+                };
+            }
 
             List<Hediff> hediffs = __instance.health.hediffSet.hediffs;
             for (int i = 0; i < hediffs.Count; i++)

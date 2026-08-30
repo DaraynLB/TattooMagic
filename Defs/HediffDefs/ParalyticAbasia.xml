@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <!-- Granted by a Phoenix tattoo's own revival mechanic (spec 014) from a
+       colonist's 3rd lifetime revival attempt onward. Its duration is NOT
+       set here — it's computed per-occurrence (escalating) and set directly
+       on the granted instance's own HediffComp_Disappears via SetDuration(),
+       mirroring HediffComp_FrostSigilEffect.GrantSlow's existing pattern
+       (research.md R10). capMods values below are placeholders pending the
+       PRD §9 balance pass. -->
+  <HediffDef>
+    <defName>TattooMagic_Hediff_ParalyticAbasia</defName>
+    <label>paralytic abasia</label>
+    <description>Near-total paralysis, the toll of repeatedly cheating death with a Phoenix tattoo.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>true</isBad>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <showRemainingTime>true</showRemainingTime>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <capMods>
+          <li>
+            <capacity>Moving</capacity>
+            <setMax>0.05</setMax>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <setMax>0.05</setMax>
+          </li>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.3</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+</Defs>
