@@ -5,6 +5,10 @@
     <defName>TattooMagic_TattooRitual</defName>
     <driverClass>TattooMagic.JobDriver_TattooRitual</driverClass>
     <reportString>performing a tattoo ritual on TargetB.</reportString>
+    <!-- Keep the player-chosen performer on task: routine chore
+         reassignment (and other mods' casual job-givers) shouldn't pull
+         them off a ritual the player explicitly ordered. -->
+    <casualInterruptible>false</casualInterruptible>
   </JobDef>
 
   <JobDef>
@@ -12,6 +16,11 @@
     <driverClass>TattooMagic.JobDriver_WaitForTattooRitual</driverClass>
     <reportString>waiting to receive a tattoo.</reportString>
     <playerInterruptible>true</playerInterruptible>
+    <!-- The recipient must hold the ritual spot; non-urgent think-tree
+         overrides (routine needs, another mod issuing a job) shouldn't
+         yank them off it. A real emergency still can, and
+         JobGiver_ReturnToTattooRitual walks them back afterward. -->
+    <casualInterruptible>false</casualInterruptible>
   </JobDef>
 
   <WorkGiverDef>

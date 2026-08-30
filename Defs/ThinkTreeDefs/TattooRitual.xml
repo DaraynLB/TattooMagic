@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <!-- Sends a colonist with a pending tattoo ritual back to the station if
+       their WaitForTattooRitual job is interrupted by anything short of a
+       real emergency (a routine need, another mod's job, a wander). Hooks
+       into the vanilla Humanlike_PreMain insertion point — see
+       JobGiver_ReturnToTattooRitual for the priority rationale. -->
+  <ThinkTreeDef>
+    <defName>TattooMagic_ReturnToTattooRitual</defName>
+    <insertTag>Humanlike_PreMain</insertTag>
+    <insertPriority>100</insertPriority>
+    <thinkRoot Class="TattooMagic.JobGiver_ReturnToTattooRitual" />
+  </ThinkTreeDef>
+
+</Defs>
