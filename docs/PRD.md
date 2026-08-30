@@ -110,6 +110,26 @@ Psycasts).
   Berserker's Mark's Tier 2 should still carry a defense tradeoff, just a
   less punishing one.
 
+### 5.5 Artwork Requirements
+
+Every tattoo — starter roster and any added later — needs real icon artwork
+before it can ship; none goes live on a placeholder or borrowed texture.
+
+- One 256x256 PNG icon per tattoo, RGBA with a transparent background,
+  matching every icon shipped to date.
+- Passive tattoos store their single icon under `Textures/UI/Tattoos/`.
+  Triggered tattoos store theirs under `Textures/UI/Commands/` instead,
+  since that same file is reused as the ability's gizmo icon
+  (`abilityIconPath`) as well as the tattoo's selection icon — one file,
+  not two.
+- No AI-generation watermark or badge ("Made with AI" or equivalent) may
+  remain in the shipped file, even if the source art was AI-assisted — trim
+  it before the file is added to the mod.
+- Style should read consistently with the rest of the roster (silhouette
+  weight, framing, etc.). There's no separate written style guide beyond
+  "matches the others" — compare new art side-by-side against the current
+  set before finalizing.
+
 ## 6. Starter Tattoo Roster (v1 — 11 tattoos)
 
 Proposed starting set, mixing passive and triggered effects across combat,

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ingredient counts and workAmount are placeholders pending the PRD §9 balance pass. -->
+<Defs>
+
+  <TattooMagic.TattooMagicDef>
+    <defName>TattooMagic_Phoenix</defName>
+    <label>Phoenix</label>
+    <description>A rare tattoo that cheats death itself. Its wearer automatically returns to life some time after actually dying, at the cost of a burn and a growing risk of temporary paralysis — and passively guards against fatal bleeding along the way. Revival only prevents death itself: any lasting damage from the killing blow, such as a mangled organ, comes back with the wearer rather than being healed.</description>
+    <tattooType>Passive</tattooType>
+    <modifierSummary>Tier 1: revives 5 days after death (decomposition-based chance, retries daily); severe burn per attempt; passive chance to auto-cauterize a severe bleed.
+Tier 2 (reached by staying alive long enough): revives after only 3 days; lighter burn per attempt; higher cauterize chance. Only 3 may be active across your whole faction at once.</modifierSummary>
+    <iconPath>UI/Tattoos/Phoenix</iconPath>
+    <workAmount>600</workAmount>
+    <appliedHediff>TattooMagic_Hediff_Phoenix</appliedHediff>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>MedicineHerbal</li>
+          </thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Silver</li>
+          </thingDefs>
+        </filter>
+        <count>25</count>
+      </li>
+    </ingredients>
+  </TattooMagic.TattooMagicDef>
+
+</Defs>

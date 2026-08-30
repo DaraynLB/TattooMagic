@@ -17,6 +17,12 @@ namespace TattooMagic
 
         public static HediffDef TattooMagic_Hediff_FrostSigilSlow;
 
+        public static TattooMagicDef TattooMagic_Phoenix;
+
+        public static HediffDef TattooMagic_Hediff_Phoenix;
+
+        public static HediffDef TattooMagic_Hediff_ParalyticAbasia;
+
         static TattooMagicDefOf()
         {
             DefOfHelper.EnsureInitializedInCtor(typeof(TattooMagicDefOf));

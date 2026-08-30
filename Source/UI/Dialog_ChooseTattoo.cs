@@ -46,6 +46,12 @@ namespace TattooMagic
                 recipientTracker?.SyncAppliedTattoosFromActualHediffs();
             }
 
+            // Same self-heal precedent as above, for spec 014's own
+            // faction-wide registry — found necessary via live testing
+            // (2026-08-23): registeredWearers can drift below the true
+            // count of actual Phoenix hediffs across a save/reload.
+            GameComponent_PhoenixRegistry.Get()?.SyncFromActualHediffs();
+
             Rect viewRect = new Rect(0f, 0f, inRect.width - 16f, rowCount * rowHeight);
             Widgets.BeginScrollView(inRect, ref scrollPosition, viewRect);
 
@@ -137,6 +143,23 @@ namespace TattooMagic
                         // select it again.
                         if (recipientTracker.HasTattoo(tattoo))
                             continue;
+
+                        // Spec 014 FR-006: Phoenix is still shown once the
+                        // faction is at/over its 3-tattoo cap, but disabled
+                        // with an explanatory tooltip rather than hidden —
+                        // better UX than making an existing option silently
+                        // disappear.
+                        if (tattoo == TattooMagicDefOf.TattooMagic_Phoenix && GameComponent_PhoenixRegistry.Get()?.IsAtCap == true)
+                        {
+                            Rect disabledRect = listing.GetRect(30f);
+                            Color previousColor = GUI.color;
+                            GUI.color = Color.grey;
+                            Widgets.ButtonText(disabledRect, tattoo.label, drawBackground: true, doMouseoverSound: false, active: false);
+                            GUI.color = previousColor;
+                            TooltipHandler.TipRegion(disabledRect, "Only 3 Phoenix tattoos may be active across your faction at once. Free a slot (a wearer's tattoo permanently lost, or successfully removed) before applying another.");
+                            listing.Gap(listing.verticalSpacing);
+                            continue;
+                        }
 
                         if (listing.ButtonText(tattoo.label))
                             TryQueueRitual(recipientTracker, tattoo);
