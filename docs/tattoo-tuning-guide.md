@@ -13,8 +13,9 @@ fast/slow, and you just change the number back or try something else.
 
 1. Find your TattooMagic mod folder — wherever RimWorld has it installed (in your Steam Workshop mods, or your
    local `Mods` folder, depending on how you installed it).
-2. Inside it, the files you care about live under `Defs\TattooDefs\` and `Defs\HediffDefs\Tattoos\` (and one file
-   directly under `Defs\HediffDefs\`, covered near the end of this guide).
+2. Inside it, the files you care about live under `Defs\TattooDefs\` and `Defs\HediffDefs\Tattoos\` (plus a
+   handful of support files directly under `Defs\HediffDefs\`, and one under `Defs\ThoughtDefs\` for Shedscale's
+   mood penalty — each called out alongside the tattoo it belongs to).
 3. Open the relevant `.xml` file in a plain text editor — Notepad works fine. Right-click the file → **Open with**
    → **Notepad** if double-clicking opens something else.
 4. Find the number you want to change, between its opening and closing tag — e.g. in
@@ -48,6 +49,10 @@ ritual, no extra cost, no lost slot. What makes the counter go up is different f
 - **Passive tattoos** (always-on, no button to click): the counter goes up on a specific combat event tied to
   that tattoo's own theme — explained individually below, since it's different for each one (e.g. Ironskin Glyph
   counts hits it absorbed; Vampiric Thorn counts melee hits landed).
+- **Automatic tattoos** (Phoenix, Shedscale): there's no ability to use and no single triggering event — these
+  react entirely on their own to something happening to the wearer (dying, losing a body part), and their own
+  path to Tier 2 is explained individually in their own sections below, since neither one uses the simple
+  "progress counter reaches a threshold" shape the other two categories share.
 
 **Ticks.** RimWorld's internal clock runs in "ticks" instead of seconds. At normal (1x) game speed, **60 ticks ≈
 1 real-world second**. So a `cooldownDurationTicks` of `3600` is about a 1-minute cooldown, and `300` is about 5
@@ -66,14 +71,19 @@ section below). For every other tattoo, don't overthink it — bigger number, bi
 
 Separate from the effect itself, each tattoo has its own **`Defs\TattooDefs\<Name>.xml`** file controlling what
 it costs to apply at the ritual station — a different file from the one controlling what the tattoo actually
-*does* (that's in `Defs\HediffDefs\Tattoos\<Name>.xml`, covered below). Right now, every one of the 11 tattoos
-uses the exact same recipe:
+*does* (that's in `Defs\HediffDefs\Tattoos\<Name>.xml`, covered below). The original 11 tattoos all use the exact
+same recipe:
 
 | Field | What it controls | Right now |
 |---|---|---|
 | `workAmount` | How much work the ritual takes to perform. | 600 |
 | Ingredient: `MedicineHerbal` count | How many herbal medicine are consumed. | 5 |
 | Ingredient: `Silver` count | How much silver is consumed. | 10 |
+
+**Phoenix and Shedscale cost more silver** — 25 and 15 respectively, instead of 10 — reflecting how much rarer
+their effects are meant to be. `workAmount` and the herbal medicine count are unchanged for both. Every other
+tattoo added in the future should be assumed to set its own cost rather than automatically matching the
+original 11.
 
 To change a tattoo's cost, open its file under `Defs\TattooDefs\`, find the `<ingredients>` block, and change the
 `<count>` numbers, or the `<workAmount>` value near the top.
@@ -90,11 +100,17 @@ cooldown to reset first). These numbers live in **`Defs\HediffDefs\TattooTracker
 | `slot2Threshold` | Mastery points needed to unlock the 2nd tattoo slot. | 3 |
 | `slot3Threshold` | Mastery points needed to unlock the 3rd tattoo slot. | 8 |
 
+**Phoenix and Shedscale don't feed this counter at all.** Their own automatic mechanics (revival, cauterizing,
+regrowth) aren't a click or a combat event this system watches for, so wearing either one contributes zero
+mastery points on its own. A colonist wearing one of these *and* a triggered or passive tattoo still earns slots
+normally from that second tattoo's own activity.
+
 ---
 
-## The 11 tattoos
+## The 13 tattoos
 
-Each section below covers one tattoo's file at `Defs\HediffDefs\Tattoos\<Name>.xml`.
+Each section below covers one tattoo's file at `Defs\HediffDefs\Tattoos\<Name>.xml`. Phoenix and Shedscale each
+also have one or two extra support files, called out in their own sections.
 
 ### Frost Sigil (Passive)
 
@@ -288,6 +304,84 @@ Mental resilience — harder to break, less affected by psychic effects.
 | `psychicSensitivityResistanceTier1` / `Tier2` | Also written negative, same rule as above — more negative means more resistant to psychic effects. | -10% / -20% |
 | `moodBuffTier2` | Tier 2 only — a flat, always-on mood bonus. This one is a normal positive number (bigger = better). | +3 |
 | `tier2Threshold` | Resisted close calls needed to reach Tier 2. | 5 |
+
+### Phoenix (Automatic)
+
+Cheats death. No ability, no button — the moment a wearer actually dies (not merely downed), the tattoo starts
+working toward bringing them back on its own.
+
+- **Tier 1**: after a several-day wait, a daily chance (better the fresher the body) to revive the wearer,
+  retrying once a day until it succeeds or the body is destroyed/fully decayed. Every attempt, success or
+  failure, leaves a burn.
+- **Tier 2** (after staying alive long enough while wearing it): a shorter wait before the first attempt, and a
+  lighter burn each time.
+- **Progress counter**: simply staying alive, day by day, while wearing the tattoo — it resets to zero every time
+  the wearer actually dies and comes back, so reaching Tier 2 means a long unbroken stretch of survival.
+- Deliberately cremating a Phoenix-tattooed corpse via a crematorium's own bill guarantees the next attempt
+  succeeds, regardless of how decomposed the body already is, at the cost of any gear left on it.
+- A colonist's 3rd lifetime revival, and every one after it, comes with a temporary near-total paralysis as the
+  price of cheating death that many times — lasting longer with each additional occurrence.
+- Only 3 colonists in your whole faction can wear this tattoo at once. It also has an entirely separate passive:
+  a chance to auto-cauterize a wearer's worst bleeding wound before it becomes fatal, with no connection to the
+  revival mechanic at all.
+
+Its numbers live in **`Defs\HediffDefs\Tattoos\Phoenix.xml`** and one support file,
+**`Defs\HediffDefs\ParalyticAbasia.xml`**:
+
+| Field | What it controls | Right now |
+|---|---|---|
+| `waitDaysTier1` / `Tier2` | Days after death before the first revival attempt. | 5 / 3 |
+| `decompositionChanceCurve` | A curve, not a single number — each `<li>(days, chance)</li>` point pairs a corpse age with a success chance. Add, remove, or edit points to reshape the odds over time; RimWorld fills in the curve smoothly between them. | (0, 90%) → (1, 60%) → (3, 30%) → (7, 10%) → (14, 2%) |
+| `burnSeverityTier1` / `Tier2` | How severe the burn left by each attempt is. | 18 / 8 |
+| `abasiaBaseDurationDays` | How long the paralysis lasts the first time it happens to a colonist. | 2 |
+| `abasiaDurationIncrementDays` | How many extra days it lasts each time after that. | 1 |
+| `tier2DaysAliveThreshold` | Consecutive days alive (while worn) needed to reach Tier 2. | 30 |
+| `cauterizeChanceTier1` / `Tier2` | Passive per-check chance to auto-cauterize a bleeding wound. | 15% / 35% |
+| `minimumQualifyingBleedRate` | How severe a bleed has to be before the passive will even consider it — trivial scratches are always ignored regardless of this value. | 0.15 |
+| `factionCap` | Maximum colonists who may wear this tattoo across your whole faction at once. | 3 |
+
+`Defs\HediffDefs\ParalyticAbasia.xml`'s `capMods` block controls how disabling the paralysis is — how close to
+`0` each affected capacity (Moving, Manipulation, Consciousness) is forced down to while it's active. These are
+intentionally severe by design; lower them if you want the paralysis to feel less punishing.
+
+### Shedscale (Automatic)
+
+Automatically regrows a wearer's missing body parts over time — no ability, no button, and no ritual needed a
+second time. The moment an eligible part is genuinely missing and nothing artificial has been installed in its
+place, the tattoo starts regrowing it on its own.
+
+- **Tier 1**: external limbs and extremities (fingers, toes, hands, feet, arms, legs, ears, nose, jaw, eyes)
+  regrow over several days each, coming back at reduced efficiency as a permanent condition on that part.
+- **Tier 2** (reached by wearing it long enough, or regrowing enough parts — whichever comes first): regrowth
+  also covers internal organs (kidneys, lungs), finishes faster, comes back at full efficiency, and **reaches
+  back** to remove the efficiency penalty from every part already regrown at Tier 1, not just future ones.
+- **Progress counter**: two independent counters race each other — consecutive days worn, and total parts
+  regrown. Whichever hits its own threshold first triggers the permanent upgrade.
+- Every eligible missing part regrows at the same time — there's no one-at-a-time limit — but a colonist with
+  several parts regrowing at once runs hungrier and carries more pain the more are active simultaneously, plus a
+  flat mood penalty (that part doesn't get worse no matter how many parts are involved). Malnutrition pauses all
+  of a colonist's regrowth entirely until they've eaten enough to recover.
+- Fitting a prosthetic or bionic on an eligible part blocks its regrowth entirely for as long as it's installed,
+  with no progress quietly banking underneath — removing the replacement restarts that part's regrowth from
+  scratch. There is no colony-wide limit on how many colonists may wear this tattoo.
+
+Its numbers live in **`Defs\HediffDefs\Tattoos\Shedscale.xml`** and two support files,
+**`Defs\HediffDefs\ShedscaleStrain.xml`** and **`Defs\HediffDefs\ShedscaleImperfectRegrowth.xml`**:
+
+| Field | What it controls | Right now |
+|---|---|---|
+| `tier1RegrowthDays` / `tier2RegrowthDays` | Days to regrow one part, per tier. | 7 / 4 |
+| `tier1EfficiencyFactor` | The regrown part's health fraction while the Tier 1 penalty applies. `0.80` means it comes back at 80% as good as the original. | 0.80 |
+| `tier2DaysWornThreshold` | Consecutive days worn needed to reach Tier 2 via the "worn long enough" path. | 30 |
+| `tier2PartsRegrownThreshold` | Lifetime parts regrown needed to reach Tier 2 via the "used enough" path. | 3 |
+| `tier1EligiblePartDefs` | The list of body-part types eligible at Tier 1. Add or remove entries to change what can regrow. | Finger, Toe, Hand, Foot, Arm, Leg, Ear, Nose, Jaw, Eye |
+| `tier2AdditionalEligiblePartDefs` | Extra body-part types that become eligible once Tier 2 is reached, on top of the Tier 1 list. | Kidney, Lung |
+
+`ShedscaleStrain.xml`'s `<stages>` block controls the hunger/pain cost per number of parts regrowing at once —
+each stage's `minSeverity` is how many parts must be active for that stage's `hungerRateFactorOffset`/
+`painOffset` to apply. `ShedscaleImperfectRegrowth.xml` has no tunable numbers of its own — its severity is
+calculated from `tier1EfficiencyFactor` above at the moment each part finishes regrowing. The flat mood penalty
+lives in a third file, `Defs\ThoughtDefs\Shedscale.xml`, as `baseMoodEffect` (currently -4).
 
 ---
 
