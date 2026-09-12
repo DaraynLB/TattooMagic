@@ -3,4 +3,7 @@
 
   <TattooMagic_TabTattoos>Tattoos</TattooMagic_TabTattoos>
 
+  <AlertShedscaleRegrowthBlocked>Shedscale regrowth blocked</AlertShedscaleRegrowthBlocked>
+  <AlertShedscaleRegrowthBlockedDesc>The following colonists have a Shedscale tattoo and an eligible body part that could be regrowing naturally, but it's blocked by an installed prosthetic or bionic. Uninstalling it will let the tattoo start regrowing that part from scratch:\n\n{0}</AlertShedscaleRegrowthBlockedDesc>
+
 </LanguageData>

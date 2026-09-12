@@ -23,6 +23,12 @@ namespace TattooMagic
 
         public static HediffDef TattooMagic_Hediff_ParalyticAbasia;
 
+        public static HediffDef TattooMagic_Hediff_Shedscale;
+
+        public static HediffDef TattooMagic_Hediff_ShedscaleStrain;
+
+        public static HediffDef TattooMagic_Hediff_ShedscaleImperfectRegrowth;
+
         static TattooMagicDefOf()
         {
             DefOfHelper.EnsureInitializedInCtor(typeof(TattooMagicDefOf));

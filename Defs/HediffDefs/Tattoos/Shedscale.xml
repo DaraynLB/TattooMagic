@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- All numeric values below are placeholders pending the PRD §9-style balance pass (this spec's own
+     Assumptions section explicitly defers regrowth days, the efficiency factor, and both Tier 2 thresholds).
+     They are read exclusively through TattooEffectValues at point of use. The two eligible-part-def lists are
+     likewise placeholders — a future balance pass may widen Tier 2's organ coverage (e.g. Heart/Liver) without
+     any code change, research.md R3. -->
+<Defs>
+
+  <HediffDef>
+    <defName>TattooMagic_Hediff_Shedscale</defName>
+    <label>shedscale tattoo</label>
+    <description>A reptile-themed magic tattoo that automatically regrows its wearer's missing body parts over time, so long as nothing is installed in their place. Tier 1 regrowths come back at reduced efficiency; reaching Tier 2 fixes this both going forward and retroactively.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>false</isBad>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="TattooMagic.HediffCompProperties_ShedscaleEffect">
+        <tier1RegrowthDays>7</tier1RegrowthDays>
+        <tier2RegrowthDays>4</tier2RegrowthDays>
+        <tier1EfficiencyFactor>0.80</tier1EfficiencyFactor>
+        <tier2DaysWornThreshold>30</tier2DaysWornThreshold>
+        <tier2PartsRegrownThreshold>3</tier2PartsRegrownThreshold>
+        <tier1EligiblePartDefs>
+          <li>Finger</li>
+          <li>Toe</li>
+          <li>Hand</li>
+          <li>Foot</li>
+          <li>Arm</li>
+          <li>Leg</li>
+          <li>Ear</li>
+          <li>Nose</li>
+          <li>Jaw</li>
+          <li>Eye</li>
+        </tier1EligiblePartDefs>
+        <tier2AdditionalEligiblePartDefs>
+          <li>Kidney</li>
+          <li>Lung</li>
+        </tier2AdditionalEligiblePartDefs>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

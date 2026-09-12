@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Granted by a Shedscale tattoo's own regrowth-completion logic (spec 015) whenever a part finishes
+     regrowing while its wearer is still Tier 1. Severity is set programmatically per instance
+     (part.def.GetMaxHealth(pawn) * (1 - tier1EfficiencyFactor)) and its HediffComp_GetsPermanent.IsPermanent
+     is force-activated immediately at apply time, rather than left to vanilla's normal
+     heals-or-becomes-permanent timer (research.md R6) — this condition is permanent from the moment regrowth
+     completes, not something that starts fresh and fades. Reusing vanilla's own Hediff_Injury class (not a
+     custom subclass) means its severity reduces the specific attached BodyPartRecord's own reported health,
+     which every vanilla capacity calculation already reads generically for whatever capacity that part
+     happens to serve — no per-part-type capMods list is needed here. -->
+<Defs>
+
+  <HediffDef>
+    <defName>TattooMagic_Hediff_ShedscaleImperfectRegrowth</defName>
+    <label>imperfect regrowth</label>
+    <labelNoun>an imperfect regrowth</labelNoun>
+    <description>This part grew back through a Shedscale tattoo's magic before the tattoo had fully proven itself — cartilage where there should be bone. It works, but not as well as it should.</description>
+    <hediffClass>Hediff_Injury</hediffClass>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <comps>
+      <li Class="HediffCompProperties_GetsPermanent">
+        <permanentLabel>imperfect regrowth</permanentLabel>
+      </li>
+    </comps>
+    <injuryProps>
+      <painPerSeverity>0</painPerSeverity>
+      <bleedRate>0</bleedRate>
+      <canMerge>false</canMerge>
+      <destroyedLabel>Destroyed</destroyedLabel>
+    </injuryProps>
+  </HediffDef>
+
+</Defs>

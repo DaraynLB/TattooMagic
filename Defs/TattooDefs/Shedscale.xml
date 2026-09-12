@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ingredient counts and workAmount are placeholders pending the PRD §9 balance pass. -->
+<Defs>
+
+  <TattooMagic.TattooMagicDef>
+    <defName>TattooMagic_Shedscale</defName>
+    <label>Shedscale</label>
+    <description>A reptile-themed tattoo that regrows its wearer's missing body parts automatically, over time — a hand, an eye, a lost kidney, whatever's genuinely gone. Requires no player action; an installed prosthetic or bionic blocks a part's regrowth entirely until it's surgically removed. What grows back at first is weaker than the original, cartilage rather than bone, until the tattoo has proven itself enough to stop happening.</description>
+    <tattooType>Passive</tattooType>
+    <modifierSummary>Tier 1: regrows missing external limbs/extremities in 7 days each, at reduced efficiency; every eligible missing part regrows at once. Raised hunger and mild pain per part currently regrowing, plus a mood penalty while any regrowth is active. Reaches Tier 2 after 30 days worn or 3 parts regrown, whichever comes first.
+Tier 2: regrowth also covers internal organs, takes only 4 days per part, and comes back at full efficiency — retroactively clearing the penalty from any part already regrown at Tier 1. No cap on how many colonists may wear this tattoo.</modifierSummary>
+    <iconPath>UI/Tattoos/Shedscale</iconPath>
+    <workAmount>600</workAmount>
+    <appliedHediff>TattooMagic_Hediff_Shedscale</appliedHediff>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>MedicineHerbal</li>
+          </thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Silver</li>
+          </thingDefs>
+        </filter>
+        <count>15</count>
+      </li>
+    </ingredients>
+  </TattooMagic.TattooMagicDef>
+
+</Defs>

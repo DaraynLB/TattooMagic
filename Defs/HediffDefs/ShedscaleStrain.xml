@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Granted/updated by a Shedscale tattoo's own regrowth-tracking comp (spec 015) — its Severity is set
+     directly to the wearer's current concurrent-regrowth count, never gained naturally. Per-stage values below
+     are placeholders pending the PRD §9-style balance pass (research.md R4). -->
+<Defs>
+
+  <HediffDef>
+    <defName>TattooMagic_Hediff_ShedscaleStrain</defName>
+    <label>regrowth strain</label>
+    <description>The biological toll of actively regrowing one or more body parts at once — raised hunger and a dull, constant ache. Worse the more parts are regrowing simultaneously.</description>
+    <hediffClass>Hediff</hediffClass>
+    <isBad>true</isBad>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li>
+        <minSeverity>1</minSeverity>
+        <label>mild</label>
+        <hungerRateFactorOffset>0.15</hungerRateFactorOffset>
+        <painOffset>0.02</painOffset>
+      </li>
+      <li>
+        <minSeverity>2</minSeverity>
+        <label>moderate</label>
+        <hungerRateFactorOffset>0.30</hungerRateFactorOffset>
+        <painOffset>0.04</painOffset>
+      </li>
+      <li>
+        <minSeverity>3</minSeverity>
+        <label>significant</label>
+        <hungerRateFactorOffset>0.45</hungerRateFactorOffset>
+        <painOffset>0.06</painOffset>
+      </li>
+      <li>
+        <minSeverity>4</minSeverity>
+        <label>severe</label>
+        <hungerRateFactorOffset>0.60</hungerRateFactorOffset>
+        <painOffset>0.08</painOffset>
+      </li>
+      <li>
+        <minSeverity>5</minSeverity>
+        <label>extreme</label>
+        <hungerRateFactorOffset>0.75</hungerRateFactorOffset>
+        <painOffset>0.10</painOffset>
+      </li>
+    </stages>
+  </HediffDef>
+
+</Defs>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- baseMoodEffect below is a placeholder pending the PRD §9-style balance pass, used only as the
+     TattooEffectValues fallback default (research.md R5, FR-015) — see
+     Thought_ShedscaleRegrowthActive.BaseMoodOffset. -->
+<Defs>
+
+  <ThoughtDef>
+    <defName>TattooMagic_Thought_ShedscaleRegrowthActive</defName>
+    <thoughtClass>TattooMagic.Thought_ShedscaleRegrowthActive</thoughtClass>
+    <workerClass>TattooMagic.ThoughtWorker_ShedscaleRegrowthActive</workerClass>
+    <stages>
+      <li>
+        <label>watching myself regrow</label>
+        <description>Watching my own body regrow itself is not a pleasant thing to witness.</description>
+        <baseMoodEffect>-4</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>
