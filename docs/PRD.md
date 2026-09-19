@@ -243,3 +243,54 @@ CE compatibility is a first-class requirement, not an afterthought:
   existing data model (each tattoo has its own editable XML ingredient
   list) — the actual gap is a player-facing in-game settings UI to adjust
   these without hand-editing XML/rebuilding the mod.
+- Five new tattoo ideas from the customer, 2026-09-12. Clarified over
+  two rounds of Q&A the same day; **customer has signed off on all
+  four** proposals under `docs/proposals/`, ready to move to specs
+  (`specs/016-`–`019-`). Build order: **Bastion Ward first**, then the
+  remaining three.
+  - **Bastion Ward** — **built and fully verified in-game, 2026-09-19
+    (14th tattoo).** A party-wide, ground-fixed barrier (full
+    invulnerability — melee, ranged, even fire/explosions — for a
+    placeholder ~8s, XML-tunable) that stays fixed where cast rather
+    than following the caster. Tier 2 adds radius and a small healing
+    buff. Two decisions changed from the original proposal during live
+    testing: (1) full invulnerability replaces the original "melee/
+    ranged attacks only" scoping — the customer confirmed fire/
+    explosive damage should also be negated, closer to Stillshroud's
+    own planned invulnerability; (2) the cast-time "eject enemies
+    meleeing an ally inside the new zone" behavior shipped as an
+    XML-tunable opt-in (`enableRescueEject`, off by default) rather
+    than mandatory — reliably catching every attacker in a multi-hostile
+    brawl needed real detection-signal work, and the customer judged it
+    not worth requiring by default. See
+    `specs/016-bastion-ward-tattoo-effect/` for full detail.
+  - **Soul Tether** — a pull ability that yanks one friendly colonist
+    (or corpse) to the caster regardless of status, plus a flat tend
+    speed/quality buff on the target; Tier 2 only extends max pull
+    range, stays single-target. Customer wants target/buff kept
+    swappable in the implementation so a future "inverse" (pull an
+    enemy toward the caster instead) can reuse the same plumbing.
+  - **Stillshroud** — a single-target stasis bubble: full invulnerability
+    and un-healability, "frozen in time," meant to pair with Soul
+    Tether to pull a dying colonist to base before tending. Revised to
+    a placeholder 3-day duration (XML-tunable, up from an initial
+    30-second draft) so there's real time to carry the target home;
+    manually cancelable early. Drawback: applies vanilla's existing
+    Cryptosleep Sickness hediff when it ends, so it can't be used to
+    dodge damage for free. Tier 2 grants a second, independent charge
+    (each recharges on its own timer rather than sharing one cooldown
+    pool), not a change to the freeze itself.
+  - **Thunderclap Sigil** — a stun that reuses vanilla's native stunned
+    state (not a custom frozen state); Tier 1 is single-target, Tier 2
+    adds an AoE radius (excluding allies) at the same duration.
+    Revised per customer feedback: instead of overriding stun-immunity
+    outright (flagged as too game-breaking), it can't target anything
+    vanilla marks with `isBoss` on the pawn kind (Warqueen, Diabolus,
+    Apocriton, Dreadmeld, etc.) — reusing the same flag/pattern vanilla
+    itself uses (`canTargetBosses`) to keep some of its own abilities
+    off boss encounters.
+  - Dropped: the exploration portal-to-a-random-map idea. Discussed
+    and deliberately cut for this mod — too much architecture (world-
+    tile travel vs. a pocket map, DLC gating, whole-colony vs. single-
+    pawn scope were all still open). Customer's call: better suited
+    to a separate, dedicated mod rather than a TattooMagic feature.

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <HediffDef>
+    <defName>TattooMagic_Hediff_BastionWard</defName>
+    <label>bastion ward tattoo</label>
+    <description>A magic tattoo granting a triggered, ground-fixed protective ward that fully negates melee and ranged damage to allies standing inside it.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>false</isBad>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="TattooMagic.HediffCompProperties_BastionWardEffect">
+        <!-- Placeholder values pending the PRD §9 balance pass; small/fast-to-test per feature 006 research.md R8. -->
+        <durationTicks>480</durationTicks>
+        <radiusTier1>4.5</radiusTier1>
+        <radiusTier2>6.5</radiusTier2>
+        <rangeTier1>12</rangeTier1>
+        <rangeTier2>16</rangeTier2>
+        <cooldownDurationTicks>3600</cooldownDurationTicks>
+        <tier2Threshold>15</tier2Threshold>
+        <healAmountPerTickTier2>1.0</healAmountPerTickTier2>
+        <healIntervalTicksTier2>60</healIntervalTicksTier2>
+        <abilityIconPath>UI/Commands/BastionWard</abilityIconPath>
+        <!-- Off by default (2026-09-19) - the cast-time melee-attacker rescue-eject proved the hardest part of this feature to verify reliably; opt-in via XML rather than mandatory. -->
+        <enableRescueEject>false</enableRescueEject>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

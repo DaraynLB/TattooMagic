@@ -107,7 +107,7 @@ normally from that second tattoo's own activity.
 
 ---
 
-## The 13 tattoos
+## The 14 tattoos
 
 Each section below covers one tattoo's file at `Defs\HediffDefs\Tattoos\<Name>.xml`. Phoenix and Shedscale each
 also have one or two extra support files, called out in their own sections.
@@ -382,6 +382,34 @@ each stage's `minSeverity` is how many parts must be active for that stage's `hu
 `painOffset` to apply. `ShedscaleImperfectRegrowth.xml` has no tunable numbers of its own — its severity is
 calculated from `tier1EfficiencyFactor` above at the moment each part finishes regrowing. The flat mood penalty
 lives in a third file, `Defs\ThoughtDefs\Shedscale.xml`, as `baseMoodEffect` (currently -4).
+
+### Bastion Ward (Triggered)
+
+Click, then pick a nearby spot: a protective zone appears there and stays put — it does not follow you the way
+every other triggered tattoo's effect follows its wearer. Anyone allied standing inside it takes zero damage from
+anything for as long as it lasts, not just melee and ranged attacks — fire and explosions are blocked too.
+
+- **Tier 1**: activate, choose a destination within range, the zone appears and stays fixed even after you walk
+  away, then cooldown.
+- **Tier 2** (after enough uses): a bigger zone, plus everyone standing inside also heals a little over time on
+  top of the same full protection.
+- **Progress counter**: one point per successful cast (cancelling the targeting doesn't count).
+- **Optional extra (off by default)**: at the moment of casting, this tattoo can also shove any enemy caught
+  actively meleeing an ally who ends up inside the new zone out past its radius — a one-time reaction to that
+  cast only, not a standing effect for the zone's whole duration. This shipped **off** by default because
+  reliably catching every attacker in a multi-enemy brawl (rather than just one or two) needed real work to get
+  right; turn it on if you want the extra rescue behavior.
+
+| Field | What it controls | Right now |
+|---|---|---|
+| `durationTicks` | How long the zone lasts once cast. | 480 (8s) |
+| `radiusTier1` / `Tier2` | How large an area the zone covers, per tier. | 4.5 / 6.5 |
+| `rangeTier1` / `Tier2` | Max distance from the caster you're allowed to place the zone's center, per tier. | 12 / 16 |
+| `cooldownDurationTicks` | Wait time before you can cast again — the same at both tiers, unlike most tattoos. | 3600 (60s) |
+| `healAmountPerTickTier2` | Tier 2 only — HP healed per heal tick for each ally standing inside. | 1.0 |
+| `healIntervalTicksTier2` | Tier 2 only — how often that heal tick fires. | 60 (1s) |
+| `tier2Threshold` | Casts needed to reach Tier 2. | 15 |
+| `enableRescueEject` | `true` or `false`, not a number — turns the optional cast-time enemy-shove described above on or off. | false |
 
 ---
 

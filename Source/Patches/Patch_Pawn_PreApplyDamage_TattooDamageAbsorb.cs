@@ -58,6 +58,18 @@ namespace TattooMagic
                 }
             }
 
+            // Bastion Ward (feature 016, research.md R2): the first tattoo
+            // whose protection isn't carried by the defending pawn's own
+            // hediffs at all — most protected pawns never wear the tattoo,
+            // so the per-hediff-comp loop above can never reach it. One
+            // small, additive check against the zone registry instead;
+            // changes nothing for any consumer of the loop above.
+            if (GameComponent_BastionWardZones.Get()?.TryAbsorb(__instance, ref dinfo) == true)
+            {
+                absorbed = true;
+                return false;
+            }
+
             return true;
         }
     }
