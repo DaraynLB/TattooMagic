@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ingredient counts and workAmount are placeholders pending the PRD §9 balance pass. -->
+<Defs>
+
+  <TattooMagic.TattooMagicDef>
+    <defName>TattooMagic_SoulTether</defName>
+    <label>Soul Tether</label>
+    <description>A triggered tattoo that pulls a chosen friendly pawn (or their corpse) to the wearer, granting a tend speed/quality buff to a living target on arrival.</description>
+    <tattooType>Triggered</tattooType>
+    <iconPath>UI/Commands/SoulTether</iconPath>
+    <workAmount>600</workAmount>
+    <appliedHediff>TattooMagic_Hediff_SoulTether</appliedHediff>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>MedicineHerbal</li>
+          </thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Silver</li>
+          </thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+    </ingredients>
+  </TattooMagic.TattooMagicDef>
+
+</Defs>

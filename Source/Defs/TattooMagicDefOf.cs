@@ -29,6 +29,8 @@ namespace TattooMagic
 
         public static HediffDef TattooMagic_Hediff_ShedscaleImperfectRegrowth;
 
+        public static HediffDef TattooMagic_Hediff_SoulTetherTendBuff;
+
         static TattooMagicDefOf()
         {
             DefOfHelper.EnsureInitializedInCtor(typeof(TattooMagicDefOf));
