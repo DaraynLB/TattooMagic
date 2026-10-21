@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Shared content (Defs, Textures, Patches, Languages) lives at the root;
+     each game version adds only its own compiled assembly. -->
+<loadFolders>
+  <v1.6>
+    <li>/</li>
+    <li>1.6</li>
+  </v1.6>
+  <v1.7>
+    <li>/</li>
+    <li>1.7</li>
+  </v1.7>
+</loadFolders>

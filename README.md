@@ -1,6 +1,6 @@
 # TattooMagic
 
-A RimWorld 1.6 mod that turns tattoos into a source of magic. Pawns apply
+A RimWorld 1.6 / 1.7 mod that turns tattoos into a source of magic. Pawns apply
 magical tattoos at a dedicated ritual station, gaining passive buffs and/or
 gizmo-activated abilities. See [docs/PRD.md](docs/PRD.md) for full scope.
 
@@ -20,7 +20,7 @@ for a player-facing guide to hand-editing those values yourself.
 
 ## Requirements
 
-- RimWorld 1.6
+- RimWorld 1.6 or 1.7
 - [Harmony](https://steamcommunity.com/workshop/filedetails/?id=2009463077) (hard dependency)
 - Combat Extended is a supported soft dependency — the mod works with or without it.
 
@@ -31,14 +31,16 @@ cd Source
 dotnet build
 ```
 
-The build output lands directly in `Assemblies/` (no manual copy step).
-Requires the .NET SDK plus the .NET Framework 4.7.2 Developer Pack installed
-(RimWorld's runtime targets `net472`).
+One build produces two DLLs: `1.6/Assemblies/` (`net472`, for RimWorld 1.6's
+Unity/Mono runtime) and `1.7/Assemblies/` (`net10.0`, for RimWorld 1.7's
+Waylith engine). `LoadFolders.xml` makes the game load the shared root content
+plus the matching version folder. Requires the .NET 10 SDK plus the .NET
+Framework 4.7.2 Developer Pack.
 
 ## Installing
 
-A `dotnet build` from `Source/` also publishes `About/` and `Assemblies/`
-into your RimWorld `Mods/TattooMagic` folder automatically (see the
+A `dotnet build` from `Source/` also publishes `About/`, `LoadFolders.xml`, `1.6/`, `1.7/` and the
+shared content folders into your RimWorld `Mods/TattooMagic` folder automatically (see the
 `PublishToModsFolder` target in `Source/TattooMagic.csproj`) — no manual
 copy step needed for day-to-day development.
 
