@@ -225,7 +225,7 @@ confirm the corpse is relocated next to the caster with no tend buff and no erro
       (FR-011); the relocation step itself (T011's `Position`/`Notify_Teleported()` logic) already works
       identically for a `Corpse` per research.md R3 and needs no change (depends on T011, T015).
       **DONE** (built as part of T011's single coherent pass — see that task's note).
-- [ ] T017 [US2] Manual verification: run `quickstart.md` Scenario 2 in full — a friendly corpse is selectable and
+- [X] T017 [US2] Manual verification: run `quickstart.md` Scenario 2 in full — a friendly corpse is selectable and
       pulls correctly with no buff granted and no errors; a hostile-faction corpse is correctly rejected as a
       target, confirming the `InnerPawn`-aware check (T015) actually matters and isn't a no-op (depends on T016).
       **DONE (2026-10-21, RimWorld 1.7.4985, Combat Extended loaded)** — live-tested by the user, with the log
@@ -264,7 +264,7 @@ stronger than at Tier 1 (`quickstart.md` Scenario 3).
       logic (depends on T011, T016).
       **CONFIRMED by code review** — `CurrentTierRange` and both bonus resolutions in `OnTargetConfirmed` all
       branch on `tierState.tier >= 2` exactly as required; no further change needed.
-- [ ] T019 [US3] Manual verification: run `quickstart.md` Scenario 3 in full — cooldown blocks immediate
+- [X] T019 [US3] Manual verification: run `quickstart.md` Scenario 3 in full — cooldown blocks immediate
       reactivation, repeated successful activations increment the progression counter and trigger the Tier 1→2
       upgrade with no new ritual/ingredient/slot change, Tier 2's range is measurably longer, Tier 2's tend buff is
       measurably stronger, and a Tier 2 cast still affects exactly one target (depends on T018).
@@ -317,7 +317,7 @@ spec.md.
         `progress=1` on both log lines). A second Soul Tether caster works too. Worth revisiting in the PRD §9
         balance pass if one caster should be able to keep a patient buffed.
 
-- [ ] T021 [P] Manual verification: run `quickstart.md` Scenario 5 in full — the caster's tier/progression-counter
+- [X] T021 [P] Manual verification: run `quickstart.md` Scenario 5 in full — the caster's tier/progression-counter
       and a target's active tend-buff remaining duration both survive a save/reload unchanged (FR-023, SC-008);
       with Combat Extended loaded, the full pull-and-buff flow still works with zero errors, and tending an
       unbuffed pawn (the overwhelming majority case) still produces vanilla-identical quality/speed — confirming
