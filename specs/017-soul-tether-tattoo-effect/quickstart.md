@@ -53,7 +53,10 @@ game process).
 3. Kill a hostile-faction pawn nearby instead, leaving a hostile corpse, and hover it. **Expected**: NOT
    selectable, with a "not friendly"-style reason — confirming research.md R2's corpse-faction check works
    correctly (a naive `GenHostility.HostileTo` check on the bare corpse would have wrongly allowed this).
-4. Click the friendly corpse from step 1. **Expected**: it is instantly relocated to a cell adjacent to the caster;
+3b. Kill a factionless or neutral pawn (e.g. Dev Mode "Spawn Pawn\Drifter") within range and hover its corpse.
+   **Expected**: NOT selectable, "Not friendly.": only colony/ally pawns are valid (spec Assumptions; issue #5).
+4. Click the friendly corpse from step 1. **Expected**: the same quick snatch as Scenario 1 step 7 (vanish flash,
+   then arrival about 20 ticks later), landing it in a cell adjacent to the caster;
    no tend-buff hediff is granted (there is nothing to grant it to in a way that matters — confirm no error/crash
    and no hediff appears "on" the corpse).
 

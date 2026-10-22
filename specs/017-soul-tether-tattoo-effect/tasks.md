@@ -228,7 +228,16 @@ confirm the corpse is relocated next to the caster with no tend buff and no erro
 - [ ] T017 [US2] Manual verification: run `quickstart.md` Scenario 2 in full — a friendly corpse is selectable and
       pulls correctly with no buff granted and no errors; a hostile-faction corpse is correctly rejected as a
       target, confirming the `InnerPawn`-aware check (T015) actually matters and isn't a no-op (depends on T016).
-      **Not run** — pending the user's own in-game testing.
+      **DONE (2026-10-21, RimWorld 1.7.4985, Combat Extended loaded)** — live-tested by the user, with the log
+      checked alongside:
+      - A colonist's corpse (Pilar) was selectable and pulled. The log showed `tendBuffPending=False` /
+        `tendBuffGranted=False`, no hediff was granted, and there were no errors.
+      - A hostile pirate's corpse was rejected with "Not friendly."
+      - **Defect found and fixed (issue #5):** the first run also *accepted* a factionless Dev-spawned drifter's
+        corpse, because "friendly" had been implemented as `!HostileTo`, which also passes factionless and neutral
+        pawns. The spec says colony/ally, and the customer confirmed that rule. After the fix (`IsColonyOrAlly` +
+        `!HostileTo`), the drifter's corpse shows "Not friendly." and a colony corpse still pulls. The colony-corpse
+        and hostile-corpse checks above were re-run on the fixed build.
 
 **Checkpoint**: Soul Tether now handles both living friendly pawns and friendly corpses correctly, with hostile
 corpses correctly excluded.
