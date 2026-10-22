@@ -103,13 +103,15 @@ click-time mastery wrap, but pulls nothing and grants no buff yet.
       HediffComp_SoulTetherEffect.cs`), not literally stubbed-then-patched — no live game available this session
       to exercise an intermediate stub state, same precedent as Bastion Ward's own T005. The final file matches
       this task's description plus every later task's, combined; nothing was skipped.
-- [ ] T007 Manual verification: apply (or Dev-Mode-grant) Soul Tether to a colonist, confirm a "Soul Tether" gizmo
+- [X] T007 Manual verification: apply (or Dev-Mode-grant) Soul Tether to a colonist, confirm a "Soul Tether" gizmo
       appears and is enabled, click it, confirm it immediately shows disabled with a cooldown reason (no targeting
       prompt and no pull/buff expected yet — that's US1), confirm re-activation is blocked while on cooldown, and
       confirm the gizmo re-enables once the cooldown expires (depends on T006).
-      **Not run** — no live RimWorld instance available in this session; subsumed by T014's fuller live-testing
-      pass, which the user needs to run in-game (Constitution Principle II — this feature is not "done" until
-      then).
+      **DONE (2026-10-21, RimWorld 1.7.4985, via T014's run)** — the skeleton stub state never existed (see T006),
+      so this was checked against the final build: the gizmo appeared enabled on a Dev-Mode-granted colonist, and
+      a second activation on the same caster went through only after the 1800-tick cooldown had passed (log:
+      `resolvesAt` 1517 → 3400, progress 1 → 2). The explicit "blocked while still cooling down" check is
+      re-run in full as part of T019 (Scenario 3).
 
 **Checkpoint**: Foundation ready — a real, working ability button with cooldown, tier-progression scaffolding, and
 correct mastery opt-out wiring exists. No targeting, pull, or buff is granted yet; that's what US1 adds.
@@ -177,14 +179,24 @@ tend speed/quality buff active (`quickstart.md` Scenario 1).
       **DONE** — registered via a new `RegisterSoulTetherTendSpeedBuff` helper (kept separate from the existing
       generic `Register`, since this StatPart isn't `StatPart_TattooEffectOffset`), called from the installer's
       static constructor.
-- [ ] T014 [US1] Manual verification: run `quickstart.md` Scenario 1 in full — targeting rejects self/hostile/
+- [X] T014 [US1] Manual verification: run `quickstart.md` Scenario 1 in full — targeting rejects self/hostile/
       out-of-range candidates, accepts a downed friendly pawn, the pull relocates them adjacent to the caster, the
       tend-buff hediff appears with a visible countdown, a tend on the buffed pawn shows measurably higher quality
       and completes measurably faster than an unbuffed baseline, and the buff correctly expires (depends on T011,
       T012, T013).
-      **Not run** — requires a live RimWorld instance; pending the user's own in-game testing (Constitution
-      Principle II). Code compiles cleanly (`dotnet build`: 0 errors, 0 warnings) and is deployed to the live Mods
-      folder, but this feature is not "done" until this scenario is actually run.
+      **DONE (2026-10-21, RimWorld 1.7.4985, dual-build `net10.0` DLL, Combat Extended loaded)** — live-tested
+      by the user, with the log checked alongside:
+      - Targeting: self, hostile, and >10-cell friendlies were rejected with reasons; a downed friendly within
+        range was accepted.
+      - Pull: activation → `pull resolved` 0.32 s apart (20 ticks, as designed), with the target placed next to
+        the caster and `tendBuffGranted=True`; "soul-tethered" showed in the Health tab with a countdown.
+      - Speed: the doctor's Medical tend speed breakdown showed `Soul Tether: +50%` (76% → 126%) only while
+        tending the buffed patient, and 76% with no Soul Tether line before the pull and after expiry.
+      - Quality: the log showed `tend-quality bonus of 0.15 applied` on each of the buffed patient's three
+        tends (base 0.24 → 0.39). A tend after expiry logged no bonus. Quality is checked through the log rather
+        than the stat card, because the bonus is applied per patient inside
+        `TendUtility.CalculateBaseTendQuality` and the doctor's Medical tend quality stat doesn't change.
+      - Expiry: the hediff disappeared from the Health tab when its countdown ended.
 
 **Checkpoint**: MVP complete — Soul Tether pulls a chosen living friendly pawn to the caster and grants a real,
 measurable tend speed/quality bonus, at Tier 1.

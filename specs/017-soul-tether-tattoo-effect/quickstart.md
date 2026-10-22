@@ -7,8 +7,10 @@ game process).
 
 ## Prerequisites
 
-- Mod built (`dotnet build` from `Source/`) with output present in `Assemblies/`.
-- Mod enabled in RimWorld 1.6.
+- Mod built (`dotnet build` from `Source/`) with output present in `1.6/Assemblies/` and `1.7/Assemblies/` (dual
+  build, since 2026-10-21).
+- Mod enabled (launched via RimSort) in RimWorld 1.7, the primary test target. Smoke-test a load on 1.6 before
+  release.
 - Dev Mode enabled; use Dev Mode's "Add hediff" tool to grant `TattooMagic_Hediff_SoulTether` directly to a test
   pawn for faster iteration than the ritual station.
 - At least 2 colonist/ally pawns available and controllable via Dev Mode (one to cast, one to be pulled), plus a
