@@ -212,13 +212,32 @@ namespace TattooMagic
             if (effectivePawn == null)
                 return "Not a valid target.";
 
-            if (GenHostility.HostileTo(effectivePawn, pawn))
+            // FR-005 means colony or ally, not merely "not hostile" (issue #5):
+            // HostileTo alone is false for factionless and neutral pawns too.
+            // The HostileTo check stays so a berserk colonist is still rejected.
+            if (!IsColonyOrAlly(effectivePawn, pawn) || GenHostility.HostileTo(effectivePawn, pawn))
                 return "Not friendly.";
 
             if ((targetThing.Position - pawn.Position).LengthHorizontalSquared > CurrentTierRange * CurrentTierRange)
                 return "Too far away.";
 
             return null;
+        }
+
+        // Same faction as the caster (colonists, slaves, colony animals) or a
+        // faction formally allied with it. A dead pawn keeps its Faction, so
+        // this works unchanged on a corpse's InnerPawn.
+        private static bool IsColonyOrAlly(Pawn target, Pawn caster)
+        {
+            Faction targetFaction = target.Faction;
+            Faction casterFaction = caster.Faction;
+            if (targetFaction == null || casterFaction == null)
+                return false;
+
+            if (targetFaction == casterFaction)
+                return true;
+
+            return targetFaction.RelationWith(casterFaction, allowNull: true)?.kind == FactionRelationKind.Ally;
         }
 
         // Verse.Targeter's onUpdateAction callback — fires every Update

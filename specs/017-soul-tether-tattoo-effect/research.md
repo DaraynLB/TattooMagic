@@ -53,6 +53,19 @@ bool friendly = effectivePawn != null && !GenHostility.HostileTo(effectivePawn, 
 
 — never `GenHostility.HostileTo(target.Thing, Pawn)` called directly on a `Corpse` instance.
 
+**Correction (2026-10-21, issue #5):** `!HostileTo` alone is "not hostile", not "friendly". The same
+`a.Faction == null || b.Faction == null → false` fallback described below also lets **factionless** pawns through, and
+`HostileTo` is false for **neutral** factions too. Live testing pulled a factionless Dev-spawned drifter's corpse. The
+spec's Assumptions define friendly as **colony/ally**, and the customer confirmed that rule. The check is now:
+
+```csharp
+bool friendly = effectivePawn != null
+    && IsColonyOrAlly(effectivePawn, Pawn)            // same faction, or a faction whose relation with it is Ally
+    && !GenHostility.HostileTo(effectivePawn, Pawn);  // still rejects e.g. a berserk colonist
+```
+
+The `InnerPawn` routing below is unchanged and still required.
+
 **Rationale**: Decompiling `Verse.Thing.Faction` and `Pawn.MakeCorpse` (`Assembly-CSharp.dll`) confirms a `Corpse`'s
 own base `Thing.Faction` field is **never set** at corpse creation — `MakeCorpse` only assigns `corpse.InnerPawn =
 this`, with no `corpse.SetFaction(...)`/`corpse.Faction = ...` call anywhere in the method. Decompiling
