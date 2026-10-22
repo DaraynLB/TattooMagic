@@ -15,7 +15,9 @@ fast/slow, and you just change the number back or try something else.
    local `Mods` folder, depending on how you installed it).
 2. Inside it, the files you care about live under `Defs\TattooDefs\` and `Defs\HediffDefs\Tattoos\` (plus a
    handful of support files directly under `Defs\HediffDefs\`, and one under `Defs\ThoughtDefs\` for Shedscale's
-   mood penalty — each called out alongside the tattoo it belongs to).
+   mood penalty — each called out alongside the tattoo it belongs to). These sit at the top level of the mod
+   folder and are shared by both supported game versions. The `1.6\` and `1.7\` folders next to them hold only the
+   compiled code, with nothing to tune.
 3. Open the relevant `.xml` file in a plain text editor — Notepad works fine. Right-click the file → **Open with**
    → **Notepad** if double-clicking opens something else.
 4. Find the number you want to change, between its opening and closing tag — e.g. in
@@ -107,7 +109,7 @@ normally from that second tattoo's own activity.
 
 ---
 
-## The 14 tattoos
+## The 15 tattoos
 
 Each section below covers one tattoo's file at `Defs\HediffDefs\Tattoos\<Name>.xml`. Phoenix and Shedscale each
 also have one or two extra support files, called out in their own sections.
@@ -410,6 +412,44 @@ anything for as long as it lasts, not just melee and ranged attacks — fire and
 | `healIntervalTicksTier2` | Tier 2 only — how often that heal tick fires. | 60 (1s) |
 | `tier2Threshold` | Casts needed to reach Tier 2. | 15 |
 | `enableRescueEject` | `true` or `false`, not a number — turns the optional cast-time enemy-shove described above on or off. | false |
+
+### Soul Tether (Triggered)
+
+Click, then pick one friendly colonist, ally or colony animal — or their corpse — and they're snatched to your
+side: a quick flash where they stood, and a split second later they appear next to you. A living target also gets
+a short "soul-tethered" buff that makes them faster and better to tend. A corpse is retrieved the same way, with no
+buff.
+
+- **Who you can target**: only your own colony's pawns (colonists, slaves, colony animals) and pawns from factions
+  you're **allied** with, alive or dead. Enemies, neutral visitors and traders, and factionless wanderers can't be
+  pulled. Downed, bleeding or otherwise helpless targets are fine — that's the main point of the tattoo.
+- **What the pull changes**: only the target's position. Whatever job they were doing is interrupted, as with any
+  teleport in RimWorld: a colonist working normally just picks their next task, and a drafted colonist waits for
+  a new order. Mental states, injuries, bleeding and being downed are left exactly as they were.
+- **Tier 1**: pull one target within range, then cooldown.
+- **Tier 2** (after enough uses): longer pull range and a stronger tend buff. Still one target per cast, and the
+  same cooldown.
+- **Progress counter**: one point per successful pull (cancelling the targeting doesn't count).
+
+| Field | What it controls | Right now |
+|---|---|---|
+| `rangeTier1` / `Tier2` | How far away a target can be, per tier. | 10 / 16 |
+| `cooldownDurationTicks` | Wait time before you can pull again — the same at both tiers. | 1800 (30s) |
+| `tendQualityBonusTier1` / `Tier2` | Flat bonus added to the quality of every tend the buffed pawn receives (`0.15` = +15 percentage points). | 0.15 / 0.30 |
+| `tendSpeedBonusTier1` / `Tier2` | Flat bonus added to the doctor's tend speed while tending the buffed pawn (`0.5` = +50%). | 0.5 / 1.0 |
+| `tendBuffDurationTicks` | How long the "soul-tethered" buff lasts on the target. | 1800 (30s) |
+| `pullEffectDurationTicks` | The short gap between the vanish flash and the target arriving — keep it small so it reads as a snatch. | 20 (⅓s) |
+| `tier2Threshold` | Pulls needed to reach Tier 2. | 15 |
+
+**One interaction worth knowing:** right now the buff lasts exactly as long as the cooldown, so a single Soul
+Tether wearer can never refresh a patient's buff before it runs out — only a *second* Soul Tether wearer can.
+If you want one caster to be able to keep a patient buffed, make `tendBuffDurationTicks` longer than
+`cooldownDurationTicks`. Re-pulling an already-buffed pawn refreshes the buff to full; it never stacks.
+
+The buff itself lives in a support file, `Defs\HediffDefs\SoulTetherTendBuff.xml`. **Don't tune it there** — its
+`disappearsAfterTicks` is overwritten every time the buff is granted, using `tendBuffDurationTicks` above.
+
+Cost to apply: the standard 600 work, 5 herbal medicine and 10 silver.
 
 ---
 
