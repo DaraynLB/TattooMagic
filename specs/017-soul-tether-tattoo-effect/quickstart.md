@@ -80,8 +80,9 @@ game process).
 2. Target a friendly pawn standing already adjacent to the caster. **Expected**: the pull still resolves (no error,
    no requirement that the target be far away) and the tend buff is still granted.
 3. Pull a friendly pawn who has an in-progress job or an existing mental state / bleeding status. **Expected**:
-   after the pull, that job/mental state/bleeding status is unchanged except for position — confirm the pawn simply
-   continues (or resumes) whatever they were doing at the new location.
+   mental state and bleeding status are unchanged except for position. The in-progress job is interrupted, as with
+   vanilla's Skip psycast (spec Clarifications, session 2026-10-21): an *undrafted* pawn picks its next job from the
+   new position (often the same work), and a *drafted* pawn on a manual order stands waiting for a new order.
 4. Remove the caster's Soul Tether hediff (Dev Mode) after a pull's tend buff is already active on some other pawn.
    **Expected**: the gizmo disappears from the caster and further casts are prevented, but the already-granted tend
    buff on the other pawn is unaffected and continues to its natural expiry (FR-024).

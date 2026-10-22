@@ -102,6 +102,13 @@ is this mod's own proven precedent for the living-pawn case; `Notify_Teleported(
 (pathing/job/drawer refresh a corpse has no equivalent need for), so it is simply skipped for a `Corpse` target
 rather than requiring a parallel "notify corpse teleported" step that doesn't exist in the vanilla API.
 
+**Note (2026-10-21):** `Notify_Teleported(bool endCurrentJob = true, bool resetTweenedPos = true)` force-ends the
+pawn's current job by default (`jobs.EndCurrentJob(JobCondition.InterruptForced, …)`), and its pather step
+(`StopDead()` + `ResetToCurrentPosition()`) clears any path in progress. Vanilla's Skip psycast
+(`CompAbilityEffect_Teleport`) calls it with the same defaults. The default is kept deliberately (spec Clarifications,
+session 2026-10-21). Passing `endCurrentJob: false` would leave a mid-walk `Goto` toil with a cleared path and no way
+to finish.
+
 **Alternatives considered**: Despawn-then-`GenSpawn.Spawn` at the new cell (the usual pattern for moving a `Thing`
 across longer distances or between maps) — rejected as unnecessary ceremony for a same-map, always-walkable-cell
 relocation once R3's decompile confirmed the plain `Position` setter is already fully correct and is exactly what
