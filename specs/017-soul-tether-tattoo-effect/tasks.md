@@ -322,7 +322,19 @@ spec.md.
       with Combat Extended loaded, the full pull-and-buff flow still works with zero errors, and tending an
       unbuffed pawn (the overwhelming majority case) still produces vanilla-identical quality/speed — confirming
       the two new patches (T012, T013) are truly additive-only (depends on T019).
-      **Not run** — pending the user's own in-game testing (and access to a CE-loaded save).
+      **DONE (2026-10-21, RimWorld 1.7.4985)** — from the user's in-game sessions, the logs and a code check:
+      - Save/reload: the user saved and loaded several times during T014–T020. In the log, Barry's counter carried
+        over a save, game restart and reload (`progress=3` in the session before, then `progress=4` on the first
+        pull after loading `Tattoo-Tether-Scenario2-Step2`). By code: `CompExposeData` saves the tier state,
+        `cooldownEndTick` and every in-flight pull field. The buff hediff saves its own `qualityBonus`/`speedBonus`,
+        and its remaining duration is saved by vanilla's `HediffComp_Disappears`.
+      - Combat Extended present: every Scenario 1–4 run had CE 16.7.4.0 loaded ("Combat Extended :: initialized"
+        in both retained logs). The full pull/buff/tend flow worked with zero errors, and the tend-speed StatPart
+        and tend-quality postfix both applied (T014/T019 evidence).
+      - Combat Extended absent: the user confirmed a clean session with CE disabled. That log has since rotated
+        out, so this point rests on the user's observation.
+      - Unbuffed tends stay vanilla: Medical tend speed showed no Soul Tether line (76%) before any pull and after
+        expiry, and post-expiry tends logged no quality bonus (T014).
 - [ ] T022 Confirm the existing cross-tattoo removal guard (feature 003) protects the Soul Tether hediff with zero
       additional per-tattoo configuration (FR-025), via `DebugAction_TestTattooRemovalGuard` (feature 007
       precedent) — with God Mode off, a direct `RemoveHediff` call is blocked; with God Mode on, it succeeds
