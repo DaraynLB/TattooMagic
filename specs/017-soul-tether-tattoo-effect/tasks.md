@@ -268,7 +268,20 @@ stronger than at Tier 1 (`quickstart.md` Scenario 3).
       reactivation, repeated successful activations increment the progression counter and trigger the Tier 1→2
       upgrade with no new ritual/ingredient/slot change, Tier 2's range is measurably longer, Tier 2's tend buff is
       measurably stronger, and a Tier 2 cast still affects exactly one target (depends on T018).
-      **Not run** — pending the user's own in-game testing.
+      **DONE (2026-10-21, RimWorld 1.7.4985, Combat Extended loaded)** — live-tested by the user, with the log
+      checked alongside:
+      - Cooldown: the gizmo was disabled with "Soul Tether is recharging: Ns remaining". Blocked clicks logged no
+        activation, and every logged activation was at least 1800 ticks after the previous one.
+      - Progression: the counter rose by exactly 1 per successful pull (4 → 15). At 15 the tattoo upgraded in
+        place, with no ritual, ingredients or slot change. The upgrading (15th) pull still used Tier 1 buff values
+        (`atTier2` is read before `TryRegisterQualifyingEvent`, the intended no-retroactive-change rule), but its
+        debug "activated" line prints the *post*-upgrade `tier=2`. That's a cosmetic log inaccuracy, not a
+        gameplay defect.
+      - Tier 2 range: at the same zoom, the range ring's radius measured about 1.6× Scenario 2's (16 vs 10 cells).
+      - Tier 2 buff: the doctor's breakdown showed `Soul Tether: +100%` (vs +50% at Tier 1). The log showed
+        `tend-quality bonus of 0.30` on each of three tends (base 0.24 → 0.54, vs +0.15 at Tier 1).
+      - Single target: a Tier 2 pull with another colonist standing beside the target moved and buffed only the
+        chosen target (one `pull resolved` line; the bystander stayed put with no hediff).
 
 **Checkpoint**: All three user stories complete and independently verified — Soul Tether is feature-complete per
 spec.md.
