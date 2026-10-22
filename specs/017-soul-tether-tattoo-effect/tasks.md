@@ -335,20 +335,26 @@ spec.md.
         out, so this point rests on the user's observation.
       - Unbuffed tends stay vanilla: Medical tend speed showed no Soul Tether line (76%) before any pull and after
         expiry, and post-expiry tends logged no quality bonus (T014).
-- [ ] T022 Confirm the existing cross-tattoo removal guard (feature 003) protects the Soul Tether hediff with zero
+- [X] T022 Confirm the existing cross-tattoo removal guard (feature 003) protects the Soul Tether hediff with zero
       additional per-tattoo configuration (FR-025), via `DebugAction_TestTattooRemovalGuard` (feature 007
       precedent) — with God Mode off, a direct `RemoveHediff` call is blocked; with God Mode on, it succeeds
       (depends on T021).
       **Not run live**, but confirmed by code inspection: the removal guard (feature 003) is registered generically
       against every tattoo-applied `HediffWithComps`, with no per-def opt-in list to add `TattooMagic_Hediff_
-      SoulTether` to — matching every other tattoo's own zero-configuration protection. Live confirmation still
-      pending.
-- [ ] T023 Confirm every placeholder value in `Defs/HediffDefs/Tattoos/SoulTether.xml` is still at its T002
+      SoulTether` to — matching every other tattoo's own zero-configuration protection.
+      **Live-confirmed (2026-10-21, RimWorld 1.7.4985):** with God mode off, "T: TEST: unsanctioned RemoveHediff on
+      tattoo" on Barry logged `RESULT: TattooMagic_Hediff_SoulTether still present — guard correctly blocked the
+      removal.` With God mode on, the health-tab delete removed it (T020 Scenario 4 step 4).
+- [X] T023 Confirm every placeholder value in `Defs/HediffDefs/Tattoos/SoulTether.xml` is still at its T002
       fast-testing default (revert if any were temporarily widened during manual testing, per features
       005/007/008/016 precedent); confirm a final clean `dotnet build` (0 errors, 0 warnings) (depends on T022).
       **Build confirmed clean** (0 errors, 0 warnings) with all placeholder values unchanged from T002 (no live
-      testing occurred this session to have widened any of them). Full task completion still depends on T020-T022's
-      live verification.
+      testing occurred this session to have widened any of them).
+      **Re-confirmed after live testing (2026-10-21):** none of the three Soul Tether Def files has changed since
+      the feature commit (`git log` shows only that commit, and the working tree is clean). The live tests used Dev
+      Mode instead of widened values. A `--no-incremental` rebuild of both targets (`net472` + `net10.0`) gave 0
+      compiler errors and 0 compiler warnings. The only MSBuild warnings/errors were the deploy step's MSB3026/
+      MSB3021 retries while RimWorld had the deployed DLL open, which isn't a build defect.
 - [X] T024 [P] Implement the pull VFX/SFX addendum (spec.md Clarifications, session 2026-09-19; research.md R9;
       FR-007a): add `pullEffectDurationTicks` to `HediffCompProperties_SoulTetherEffect`
       (`Defs/HediffDefs/Tattoos/SoulTether.xml`, placeholder `20`); add pending-pull fields (`pendingTarget`,
