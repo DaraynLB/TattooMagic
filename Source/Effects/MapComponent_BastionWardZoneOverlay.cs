@@ -29,6 +29,12 @@ namespace TattooMagic
     // AltitudeLayer.MetaOverlays, not MapDataOverlay. This version mirrors
     // that exact, proven pattern (BaseContent.WhiteTex as the tint base,
     // same as several other vanilla translucent-quad overlays use).
+    //
+    // [StaticConstructorOnStartup]: RimWorld's startup check warns about any
+    // type holding a static Material field without it (issue #4) — the
+    // attribute guarantees static init runs on the main thread, where all
+    // asset loading must happen.
+    [StaticConstructorOnStartup]
     public class MapComponent_BastionWardZoneOverlay : MapComponent
     {
         private const int RenderQueue = 2900; // matches GenDraw.DrawFieldEdges' own default

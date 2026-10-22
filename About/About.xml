@@ -5,6 +5,7 @@
   <author>DaraynLB</author>
   <supportedVersions>
     <li>1.6</li>
+    <li>1.7</li>
   </supportedVersions>
   <description>TattooMagic turns tattoos into a source of magic. Pawns apply magical tattoos at a dedicated ritual station, gaining passive buffs and gizmo-activated abilities. Requires Harmony; fully functional with or without Combat Extended.</description>
   <modDependencies>
