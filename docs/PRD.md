@@ -4,7 +4,7 @@
 
 TattooMagic is a RimWorld mod that turns tattoos into a source of magic. Pawns
 apply magical tattoos at a dedicated ritual/crafting station, gaining passive
-buffs and/or gizmo-activated abilities. The mod targets RimWorld **1.6**,
+buffs and/or gizmo-activated abilities. The mod targets RimWorld **1.6 and 1.7**,
 depends on **Harmony**, and must remain fully functional and balanced when
 **Combat Extended (CE)** is loaded (https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044).
 
@@ -40,7 +40,7 @@ depends on **Harmony**, and must remain fully functional and balanced when
 
 | Item | Decision |
 |---|---|
-| RimWorld version | 1.6 |
+| RimWorld version | 1.6 and 1.7 (dual build since 2026-10-21, at the customer's request: `net472` for 1.6's Unity/Mono runtime, `net10.0` for 1.7's Waylith engine, selected by `LoadFolders.xml`). 1.6 support will be formally deprecated once 1.7 reaches Steam's main branch. |
 | Hard dependency | Harmony (via `Lib.Harmony` / standard modding toolchain) |
 | Soft dependency | Combat Extended — must be detected at runtime and integrated when present; mod must also work correctly with CE **absent** |
 | DLC dependency | None required; may reference Ideology's tattoo layer for visuals if present |
@@ -264,12 +264,22 @@ CE compatibility is a first-class requirement, not an afterthought:
     brawl needed real detection-signal work, and the customer judged it
     not worth requiring by default. See
     `specs/016-bastion-ward-tattoo-effect/` for full detail.
-  - **Soul Tether** — a pull ability that yanks one friendly colonist
-    (or corpse) to the caster regardless of status, plus a flat tend
-    speed/quality buff on the target; Tier 2 only extends max pull
-    range, stays single-target. Customer wants target/buff kept
-    swappable in the implementation so a future "inverse" (pull an
-    enemy toward the caster instead) can reuse the same plumbing.
+  - **Soul Tether** — **built and fully verified in-game on RimWorld
+    1.7, 2026-10-21 (15th tattoo).** A pull ability that yanks one
+    friendly pawn (or corpse) to the caster regardless of status, plus
+    a flat tend speed/quality buff on a living target; stays
+    single-target at both tiers. Tier 2 extends max pull range and
+    strengthens the buff (spec 017 FR-016/FR-018; the original note
+    here said range only). Customer wants target/buff kept swappable in
+    the implementation so a future "inverse" (pull an enemy toward the
+    caster instead) can reuse the same plumbing. Two decisions came out
+    of live testing: (1) "friendly" means colony + allied factions only
+    — the first build also accepted neutral and factionless pawns, fixed
+    as issue #5; (2) the pull interrupts the target's current job, as
+    vanilla's own Skip psycast does, rather than preserving it (spec
+    Clarifications, 2026-10-21). Balance note for §9: the placeholder
+    buff duration equals the cooldown, so a single caster can't refresh
+    their own buff. See `specs/017-soul-tether-tattoo-effect/`.
   - **Stillshroud** — a single-target stasis bubble: full invulnerability
     and un-healability, "frozen in time," meant to pair with Soul
     Tether to pull a dying colonist to base before tending. Revised to

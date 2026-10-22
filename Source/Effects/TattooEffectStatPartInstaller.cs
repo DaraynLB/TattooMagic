@@ -28,6 +28,30 @@ namespace TattooMagic
             Register(StatDefOf.PainShockThreshold);
             Register(StatDefOf.MentalBreakThreshold);
             Register(StatDefOf.PsychicSensitivity);
+
+            RegisterSoulTetherTendSpeedBuff(StatDefOf.MedicalTendSpeed);
+        }
+
+        // Soul Tether's tend-speed buff (research.md R5 of
+        // specs/017-soul-tether-tattoo-effect) needs a different StatPart
+        // than every other registration above: its data source is the
+        // doctor's *current patient*, not the doctor's own hediffs, so it
+        // cannot be expressed via IProvidesTattooStatOffset/
+        // StatPart_TattooEffectOffset. Otherwise identical treatment
+        // (immutability clear + cache flush) to every stat this installer
+        // touches.
+        private static void RegisterSoulTetherTendSpeedBuff(StatDef stat)
+        {
+            if (stat == null)
+                return;
+
+            if (stat.parts == null)
+                stat.parts = new List<StatPart>();
+
+            stat.parts.Add(new StatPart_SoulTetherTendSpeedBuff { parentStat = stat });
+
+            stat.immutable = false;
+            stat.Worker.DeleteStatCache();
         }
 
         private static void Register(StatDef stat)

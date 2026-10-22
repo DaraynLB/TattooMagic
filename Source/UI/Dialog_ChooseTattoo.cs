@@ -161,7 +161,27 @@ namespace TattooMagic
                             continue;
                         }
 
-                        if (listing.ButtonText(tattoo.label))
+                        string costSummary = TattooRitualIngredientUtility.GetCostSummary(tattoo);
+                        string buttonLabel = costSummary.NullOrEmpty() ? tattoo.label : $"{tattoo.label}  ({costSummary})";
+
+                        // Grey out + tooltip rather than hide, same as the
+                        // Phoenix-cap case above — the player should see
+                        // what a locked-out option costs and what's short,
+                        // not have it vanish.
+                        if (!TattooRitualIngredientUtility.HasIngredientsAvailable(station.Map, tattoo))
+                        {
+                            Rect disabledRect = listing.GetRect(30f);
+                            Color previousColor = GUI.color;
+                            GUI.color = Color.grey;
+                            Widgets.ButtonText(disabledRect, buttonLabel, drawBackground: true, doMouseoverSound: false, active: false);
+                            GUI.color = previousColor;
+                            string shortfall = TattooRitualIngredientUtility.GetShortfallSummary(station.Map, tattoo);
+                            TooltipHandler.TipRegion(disabledRect, $"Not enough materials on the map:\n{shortfall}");
+                            listing.Gap(listing.verticalSpacing);
+                            continue;
+                        }
+
+                        if (listing.ButtonText(buttonLabel))
                             TryQueueRitual(recipientTracker, tattoo);
                     }
                 }
