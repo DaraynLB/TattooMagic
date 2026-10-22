@@ -292,12 +292,31 @@ spec.md.
 
 **Purpose**: Edge-case coverage, save/reload and Combat Extended verification, and final cleanup.
 
-- [ ] T020 [P] Manual verification: run `quickstart.md` Scenario 4 in full — off-map targets are unselectable,
-      pulling an already-adjacent target still grants the buff, an in-progress job/mental state/bleeding status
-      survives the pull unchanged besides position, removing the caster's Soul Tether hediff stops future casts
-      without retroactively affecting an already-granted buff elsewhere (FR-024), and re-pulling an already-buffed
-      target refreshes rather than stacks the buff hediff (depends on T019).
-      **Not run** — pending the user's own in-game testing.
+- [X] T020 [P] Manual verification: run `quickstart.md` Scenario 4 in full — off-map targets are unselectable,
+      pulling an already-adjacent target still grants the buff, mental state/bleeding status survive the pull
+      unchanged besides position while an in-progress job is interrupted as with any vanilla teleport (spec
+      Clarifications, session 2026-10-21), removing the caster's Soul Tether hediff stops future casts without
+      retroactively affecting an already-granted buff elsewhere (FR-024), and re-pulling an already-buffed target
+      refreshes rather than stacks the buff hediff (depends on T019).
+      **DONE (2026-10-21, RimWorld 1.7.4985, Combat Extended loaded)** — live-tested by the user, with the log
+      checked alongside:
+      - Off-map: a pawn sent off the map in a caravan couldn't be targeted.
+      - Adjacent target: Pilar, already touching Barry, was pulled into another adjacent cell with
+        `tendBuffGranted=True` and no errors.
+      - Job: a drafted Johnny pulled mid-tend had his order ended and stood waiting. That's vanilla behaviour
+        (`Pawn.Notify_Teleported()` defaults to `endCurrentJob: true`, the same as the Skip psycast), and it's now
+        the spec'd behaviour: the customer chose vanilla over preserving the job, and FR-009 was updated.
+      - Mental state: Johnny in "Sad wandering" was still wandering after the pull. Bleeding survived the pull in
+        T014's run.
+      - Tattoo removal: removing Barry's tattoo (God mode health-tab delete) removed the gizmo, while the pulled
+        pawn's "soul-tethered" buff kept counting down to its natural expiry. No errors.
+      - Refresh: Johnny's buff at 26 s was reset to 29 s by a second pull, with a single hediff entry and no stack.
+        **Test note:** a single caster can't do this at the shipped tuning. The cooldown (1800 ticks, from
+        activation) and the buff (1800 ticks, from arrival 20 ticks later) mean the earliest re-pull lands as the
+        buff expires. The test used a removed-and-re-added tattoo on the caster to skip the cooldown (hence
+        `progress=1` on both log lines). A second Soul Tether caster works too. Worth revisiting in the PRD §9
+        balance pass if one caster should be able to keep a patient buffed.
+
 - [ ] T021 [P] Manual verification: run `quickstart.md` Scenario 5 in full — the caster's tier/progression-counter
       and a target's active tend-buff remaining duration both survive a save/reload unchanged (FR-023, SC-008);
       with Combat Extended loaded, the full pull-and-buff flow still works with zero errors, and tending an
